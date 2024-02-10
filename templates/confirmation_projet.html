@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+    <title>LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    {% with currentPage='' %}
+    {% include 'navbar.html' %}
+{% endwith %}
+<div class="container" style="height: 370px;margin-top: 100px;">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card ">
+                <div class="card-header text-center" style="font-size: 30px;color: blue;">
+                    Projet ajouté
+                </div>
+                <div class="card-body content-center text-center justify-content-center items-center">
+                    <p class="content-center text-center">Merci votre projet a été créé avec succès.</p>
+                    <br>
+                    <a href="/addprojetadmin" class="btn btn-primary">Retourner a l'accueil admin des projets</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'footer.html' %}
+
+</body>

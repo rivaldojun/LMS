@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+    <title>LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    {% with currentPage='blog' %}
+    {% include 'navbar.html' %}
+{% endwith %}
+
+<div class="container mt-5 mb-5" id="blog">
+    <h1 class="display-4 font-weight-bold mb-3">{{ blog.titre }}</h1>
+    <img src="{{ url_for('static', filename=blog.imagePath) }}" alt="Image de l'article" class="img-fluid rounded" style="height: 80vh; width: 100vw;">
+    <p class="mt-4" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+      {{ blog.description }}
+    </p>
+  </div>
+  
+    <style>
+        p br {
+            margin: 10px 0; /* Ajustez la marge selon vos préférences */
+        }
+        .newsletter {
+padding: 80px 0;
+background: #f2f2f2;
+}
+
+.newsletter .content {
+max-width: 650px;
+margin: 0 auto;
+text-align: center;
+position: relative;
+z-index: 2; }
+.newsletter .content h2 {
+color: #243c4f;
+margin-bottom: 40px; }
+.newsletter .content .form-control {
+height: 50px;
+border-color: #ffffff;
+border-radius:0;
+}
+.newsletter .content.form-control:focus {
+box-shadow: none;
+border: 2px solid #243c4f;
+}
+.newsletter .content .btn {
+min-height: 50px; 
+border-radius:0;
+background: #243c4f;
+color: #fff;
+font-weight:600;
+}
+    </style>
+</div>
+<section class="newsletter" style="height: 300px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content">
+                    <form action="/newsletter" method="post">
+                        <h2>Abonnez-vous a notre newsletter</h2>
+                        <div class="input-group">
+                            <input type="email" name="email" class="form-control" placeholder="Enter your email">
+                            <span class="input-group-btn">
+                                <button class="btn" type="submit">S'abonner maintenant</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 
+{% include 'footer.html' %} -->
+</body>

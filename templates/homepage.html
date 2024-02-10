@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<head>
+    <title>LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  {% with currentPage='home' %}
+  {% include 'navbar.html' %}
+  {% endwith %}
+  <div class="relative overflow-hidden bg-cover bg-no-repeat" style="
+      background-position: 50%;
+      background-image: url('../static/assets/pictures/header.png');
+      height: 700px;
+      margin-top: -6px;
+    ">
+  
+    <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
+      style="background-color: transparent">
+      <div class="flex h-full  items-center justify-center">
+        <div class="text-center text-white md:px-12">
+          <h1 class="mb-6 text-4xl items-center text-[white] text-left font-bold animate-element" data-animation="fadeInUp" style="font-family: 'Raleway';color: white;">INGÉNIERIE, DIGITALISATION <br>& INDUSTRY 4.0
+            </h1>
+          <h3 class="mb-8   items-center text-left text-[white] opacity-100 animate-element" data-animation="fadeInUp" style="font-size: 18px;font-family:'Kanit';color: rgb(255, 255, 255);" >LMS INVENTION a pour objectif de faire face aux Projets <br> et Inventions à grande échelle de l'humanité tout en les simplifiant.</h3>
+          <a href="/quisommesnous"><button class="flex btn animate-element" data-animation="fadeInUp" style="background-color:rgb(75, 75, 255);float: left;border-radius: 50px;color: white;padding: 10px;animation-duration: 1s;">
+            EN SAVOIR PLUS  
+            
+          </button>
+        </a>
+        <a href="/actualites"><button class="flex btn animate-element" data-animation="fadeInUp" style="background-color:rgb(75, 75, 255);float: left;border-radius: 50px;color: white;margin-left: 10px;padding: 10px;opacity: 0.9;animation-duration: 1.8s;">
+            ACTUALITE
+            
+          </button>
+        </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="w-full  flex justify-center items-center relative animate-element" data-animation="fadeInUp" style="animation-duration: 1.2s;padding-bottom: 0px;">
+
+    <div class="container mt-5 animate-element" data-animation="fadeInUp" style="animation-duration: 1.2s;">
+        <div class="row">
+            <!-- Première Colonne -->
+            <div class="col-md-4">
+                <div class="text-center">
+                    <span class="fas fa-tasks fa-3x" style="color: rgb(75, 75, 255);"></span> <!-- Icône pour les missions -->
+                </div>
+                <h4 class="mt-3" style="text-align: center;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;font-size: 30px;color: rgb(75, 75, 255);">Notre Mission</h4>
+                <br>
+                <p class="text-muted" style="text-align: center;font-family: 'Raleway';">Nous nous efforçons constamment de devenir l'ultime partenaire de confiance pour les entreprises en quête de modernisation, d'innovation et de prospérité au sein de l'économie numérique. Notre vision dépasse les frontières, elle incarne notre détermination à repousser les limites de l'ingénierie, de la digitalisation et de l'industrie 4.0. Notre objectif ultime est de créer un avenir meilleur et plus intelligent pour nos clients et nos partenaires, en forgeant des solutions innovantes et en contribuant à élever les normes de l'excellence technologique, opérationnelle, sociale et environnementale.</p>
+            </div>
+
+            <!-- Deuxième Colonne -->
+            <div class="col-md-4">
+                <div class="text-center">
+                    <span class="fas fa-eye fa-3x" style="color: rgb(75, 75, 255);"></span> <!-- Icône pour la vision -->
+                </div>
+                <h4 class="mt-3" style="text-align: center;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;font-size: 30px;color: rgb(75, 75, 255);">Notre Vision</h4>
+                <br>
+                <p class="text-muted" style="text-align: center;font-family: 'Raleway';">La vision de LMS INVENTION est de devenir un leader mondial dans la transformation numérique de l'industrie 4.0, en maintenant des normes élevées d'excellence technologique, opérationnelle, sociale et environnementale. Notre objectif est de rester à la pointe de l'innovation technologique, en fournissant des solutions de référence en termes de performance, d'efficacité et de durabilité. Nous cherchons également à être un modèle d'excellence opérationnelle, en exécutant nos activités avec précision et en promouvant l'amélioration continue.</p>
+            </div>
+
+            <!-- Troisième Colonne -->
+            <div class="col-md-4">
+                <div class="text-center">
+                    <span class="fas fa-cogs fa-3x" style="color: rgb(75, 75, 255);"></span> <!-- Icône pour l'approche -->
+                </div>
+                <h4 class="mt-3" style="text-align: center;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;font-size: 30px;color: rgb(75, 75, 255);">Notre Approche</h4>
+                <br>
+                <p class="text-muted" style="text-align: center;font-family: 'Raleway';">L'approche de LMS INVENTION repose sur une compréhension approfondie des besoins clients, une personnalisation des solutions, une technologie de pointe, une collaboration étroite, une formation complète, une agilité, une responsabilité sociale, et une évaluation continue. Notre objectif est d'ajouter une valeur réelle tout au long du parcours vers l'industrie 4.0 en offrant des solutions sur mesure, intégrant des technologies avancées, assurant la formation et un soutien complet, et en adoptant une approche agile et responsable.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  style="background-color: rgb(226, 230, 250);font-family: 'Raleway';">
+    <div class="flex flex-col gap-5 animate-element" data-animation="fadeInUp">
+        <p class="sm:text-[38px] text-[30px]  font-bold text-center text-[blue]" style="z-index: 999999999999;opacity: 100%;margin-bottom: -30px;margin-top: 20px;font-size: 30px;color: black;font-family: 'Kanit';">
+           NOS SERVICES
+        </p>
+    </div>
+    <div class="container-fluid" style="scale: 0.8;">
+    <div class="row">
+        <!-- Première carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 0.2s;">
+                <img src="../static/assets/images/process.png" class="card-img-top" alt="Process" style="height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary font-weight-bold">Processus</h5>
+                    <p class="card-text ">Nous améliorons les processus métier grâce à des analyses approfondies, à des outils de gestion et à des automatisations intelligentes. Notre objectif est d'optimiser chaque étape du flux de travail pour une performance accrue et une réduction des délais.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deuxième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 0.4s">
+                <img src="../static/assets/images/automation.png" class="card-img-top" alt="Automatisation" style="height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary font-weight-bold">Automatisation</h5>
+                    <p class="card-text ">Notre expertise en automatisation vise à optimiser les opérations de nos clients grâce à l'automatisation intelligente des processus. Nous concevons des solutions sur mesure pour accroître l'efficacité, réduire les coûts et minimiser les erreurs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troisième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 0.6s;">
+                <img src="../static/assets/images/energy.jpg" class="card-img-top" alt="Energie" style="height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary font-weight-bold">Energie</h5>
+                    <p class="card-text ">Notre approche innovante de la gestion de l'énergie aide les entreprises à réduire leur consommation énergétique tout en maximisant l'efficacité. Nous proposons des solutions pour une utilisation plus intelligente de l'énergie et une intégration optimale des énergies renouvelables.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quatrième carte -->
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 0.8s;">
+                <img src="../static/assets/images/industry4.png" class="card-img-top" alt="Industrie 4.0" style="height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary font-weight-bold">Industrie 4.0</h5>
+                    <p class="card-text">Dans le cadre de l'Industrie 4.0, nous aidons les entreprises à numériser leurs opérations, à connecter leurs équipements et à optimiser leur production. Notre approche holistique de la transformation numérique vise à créer des usines intelligentes et interconnectées.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cinquième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 1s;">
+                <img src="../static/assets/images/ai.png" class="card-img-top" alt="Intelligence artificielle" style="height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary font-weight-bold">Intelligence artificielle</h5>
+                    <p class="card-text ">Notre expertise en intelligence artificielle permet à nos clients de tirer parti de l'analyse de données avancée, de la prédiction et de la prise de décision automatisée. Nous créons des solutions personnalisées pour maximiser la valeur de leurs données.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sixième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 1.2s;">
+                <img src="../static/assets/images/realiteaug.png" class="card-img-top" alt="Réalité augmentée" style="height: 300px;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary font-weight-bold">Réalité augmentée</h5>
+                    <p class="card-text ">La réalité augmentée est au cœur de notre approche de la formation et de la maintenance. Nous utilisons cette technologie pour fournir des expériences interactives et immersives, améliorant ainsi la formation et le support technique.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
+
+<section class="w-full  flex justify-center items-center relative animate-element" data-animation="fadeInUp" style="background-color: #f5f5f5;">
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" >
+    <div class="flex flex-col gap-5">
+    <p class="sm:text-[38px] text-[30px]  font-bold text-center text-[blue]" style="z-index: 999999999999;opacity: 100%;margin-bottom: 20px;margin-top: 20px;font-size: 30px;color: black;font-family: 'Kanit';">
+        NOS PROJETS
+    </p>
+    <p class="sm:text-[18px] text-[24px]  text-center" style="z-index: 999999999999;opacity: 100%;margin-bottom: 20px;color: rgb(120, 120, 120);font-family: 'Raleway';">
+      Nos projets d'ingénierie repoussent les limites de la créativité technique. Explorez nos projets pour découvrir comment nous avons contribué à façonner l'avenir de l'ingénierie, de la digitalisation et de l'industrie 4.0. Ces exemples concrets démontrent notre engagement envers l'excellence et notre capacité à transformer le monde, les industries grâce à la technologie, à l'expertise et à la vision.
+    </p>
+</div>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap- mb-8">
+    <div class="sm:text-left p-6  flex flex-col justify-between" style="z-index: 999;">
+        <div>
+        <h2 class="text-[38px] font-semibold  mb-4" style="color: rgb(75, 75, 255);; font-size: 22px;">DIGITALIZATION</h2>
+        <div class="w-16 h-1  mb-4" style="background-color: rgb(75, 75, 255); ;"></div> 
+        <img src="../static/assets/images/dig.jpeg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
+      </div>
+      <div class="flex justify-between items-center">
+
+      </div>
+    </div>
+    <div class="sm:text-left p-6   flex flex-col justify-between" style="z-index: 999;">
+      <div>
+        <h2 class="text-[38px] font-semibold  mb-4" style="color: rgb(75, 75, 255);; font-size: 22px;">SMART HOME</h2>
+        <div class="w-16 h-1  mb-4" style="background-color: rgb(75, 75, 255); ;"></div> 
+        <img src="../static/assets/images/smhome.jpg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
+      </div>
+      <div class="flex justify-between items-center">
+ 
+      </div>
+    </div>
+
+    <div class="sm:text-left p-6  flex flex-col justify-between" style="z-index: 999;">
+      <div>
+        <h2 class="text-[38px] font-semibold  mb-4" style="color: rgb(75, 75, 255);; font-size: 22px;">ACCESS</h2>
+        <div class="w-16 h-1  mb-4" style="background-color: rgb(75, 75, 255); ;"></div> 
+        <img src="../static/assets/images/acess.jpg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
+      </div>
+      <div class="flex justify-between items-center">
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+
+<div class="section_our_solution mb-3 animate-element" data-animation="fadeInUp" style="overflow: hidden;height: fit-content;background-color: white;">
+    <div class="flex flex-col gap-5">
+        <p class="sm:text-[38px] text-[30px]  font-bold text-center text-[blue]" style="z-index: 999999999999;opacity: 100%;margin-bottom: 20px;margin-top: 20px;font-size: 30px;color: black;font-family: 'Kanit';">
+            TABLEAU DE BORD
+        </p>
+    </div>
+  <div class="row" style="margin-top: 100px;">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="our_solution_category">
+        <div class="solution_cards_box">
+          <div class="solution_card">
+            <div class="hover_color_bubble"></div>
+            <div class="so_top_icon">
+
+            </div>
+            <div class="text-center">
+                <div id="app" style="font-size: 60px;color:rgb(75, 75, 255);">
+                <div class="growth-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+            </div>
+                <p class="sm:text-[50px] text-[55px] font-bold text-primary-first sm:mt-[15px] text-[blue]">
+                  5<br>
+
+                    <span class="font-medium text-[15px] sm:text-[20px]  text-black">Nombre de projets livrés</span>
+
+                </p>
+
+            </div>
+          </div>
+          <div class="solution_card">
+            <div class="hover_color_bubble"></div>
+            <div class="so_top_icon">
+             
+            </div>
+            <div class="text-center">
+                <div id="app" style="font-size: 60px;color: rgb(75, 75, 255);">
+                            <div class="growth-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                </div>
+                 <p class="sm:text-[50px] text-[55px] font-bold text-primary-first sm:mt-[15px] text-center text-[blue]">
+                    M$ 1.6<br>
+
+                     <span class="font-medium text-[15px] sm:text-[20px]  text-black text-center">Montant économisé par nos clients</span>
+
+                 </p>
+                 <div class="sm:mt-[7px] mt-[40px]">
+                 </div>
+
+             </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="solution_cards_box sol_card_top_3">
+          <div class="solution_card">
+            <div class="hover_color_bubble"></div>
+            <div class="so_top_icon">
+          
+            </div>
+            <div class=" text-center">
+                <div id="app" style="font-size: 60px;color:rgb(75, 75, 255);">
+                            <div class="growth-icon">
+                                <i class="far fa-smile"></i>
+                            </div>
+                        </div>
+                 <p class="sm:text-[50px] text-[55px] font-bold text-primary-first sm:mt-[15px] text-center">
+                    3<br>
+
+                     <span class="font-medium text-[15px] sm:text-[20px]  text-black text-center">Clients satisfaits</span>
+
+                 </p>
+                 <div class="sm:mt-[7px] mt-[40px]">
+ 
+                 </div>
+
+             </div>
+          </div>
+          <div class="solution_card">
+            <div class="hover_color_bubble"></div>
+            <div class="so_top_icon">
+              
+            </div>
+            <div class=" text-center">
+                <div id="app" style="font-size: 60px;color: rgb(75, 75, 255);">
+                            <div class="growth-icon">
+                                <i class="fa fa-users"></i>
+                            </div>
+                        </div>
+                 <p class="sm:text-[50px] text-[55px] font-bold text-primary-first sm:mt-[15px] text-center">
+                    8<br>
+
+                     <span class="font-medium text-[15px] sm:text-[20px]  text-black text-center">Employés </span>
+
+                 </p>
+                 <div class="sm:mt-[7px] mt-[40px]">
+ 
+                 </div>
+
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="w-full flex justify-center items-center relative animate-element" data-animation="fadeInUp" style="background-color: #f5f5f5;font-family: 'Raleway';">
+<div class="container py-16">
+    <div cclass="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="sm:text-[38px] text-[30px]  font-bold text-center text-[blue]" style="z-index: 999999999999;opacity: 100%;margin-bottom: 20px;margin-top: 20px;font-size: 30px;color: black;font-family: 'Kanit';">
+        Ils parlent de nous
+    </p>
+        <p style="text-align: center;margin-bottom: 30px;color: rgb(108, 108, 108);font-size: 12px;">Écoutez nos clients satisfaits qui ont utilisé nos services.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
+            <!-- Comment Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex items-center mb-4">
+                    <img class="w-12 h-12 rounded-full mr-4"  src="../static/assets/celia.png" alt="User 1">
+                    <div>
+                        <h3 class="text-lg font-semibold">Celia LAPENSEE</h3>
+                    </div>
+                </div>
+                <p class="text-gray-700">Je remercie LMS INVENTION pour le service qu'il m'a rendu en me permettant de vivre comme un être du 23ème siècle en connectant tous mes équipements.</p>
+                <div class="flex items-center mt-4">
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                        </div>
+            </div>
+            <!-- Add more comment cards here -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex items-center mb-4">
+                    <img class="w-12 h-12 rounded-full mr-4" src="../static/assets/thomas.png" alt="User 1">
+                    <div>
+                        <h3 class="text-lg font-semibold">THOMAS MILLER</h3>
+                    </div>
+                </div>
+                <p class="text-gray-700">Merci à LMS INVENTION. Je peux contrôler ma maison à distance. Par exemple, je peux démarrer la climatisation juste avant d'entrer dans ma chambre. Avec l’équipe de LMS INVENTION, je ne vis ni dans le présent ni dans le passé, mais dans le FUTUR.</p>
+                <div class="flex items-center mt-4">
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                        </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex items-center mb-4">
+                    <img class="w-12 h-12 rounded-full mr-4"  src="../static/assets/christine.png" alt="User 1">
+                    <div>
+                        <h3 class="text-lg font-semibold">Christine LAPAIX</h3>
+                    </div>
+                </div>
+                <p class="text-gray-700">Vous avez sauvé ma vie en connectant notre usine. Vous m'avez permis de recevoir en temps réel les données de mon entreprise sur mon téléphone et de prendre des décisions. Merci infiniment.</p>
+                <div class="flex items-center mt-4">
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500 mr-1" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 fill-current text-yellow-500" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 0l2.39 6.7 6.89.6-5.24 4.82 1.38 6.66-5.42-3.4L2.47 19.78l1.38-6.66L0 7.3l6.89-.6L10 0z" />
+                            </svg>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </section>
+    <section id="about" class="py-5 animate-element" data-animation="fadeInUp" style="height: fit-content;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6" style="font-family: 'Raleway';">
+                    <h2 class="display-4">Qui sommes nous</h2>
+                    <br>
+                    <p>LMS INVENTION est une startup intervenant dans la migration des entreprises vers l'industrie 4.0 en fournissant des solutions technologiques, une expertise en matière de formation et de développement des compétences, une intégration transparente des technologies 4.0 et un soutien continu. Cette transition vers l'industrie 4.0 permet aux entreprises de gagner en efficacité, en compétitivité et en durabilité dans un monde en constante évolution.</p>
+                    <p>Si vous cherchez à faire évoluer votre entreprise vers l'industrie 4.0, rejoignez-nous dans cette révolution. Chez LMS INVENTION, nous sommes prêts à être votre partenaire de confiance pour votre voyage vers l'innovation, l'efficacité et la réussite.
+Contactez-nous dès aujourd'hui pour découvrir comment nous pouvons vous aider à réaliser vos objectifs dans l'ère de l'industrie 4.0.</p>
+<div class="flex justify-between items-center">
+  <a href="#ctct" class="flex items-center text-white  font-semibold px-4 py-2 rounded-lg" style="background-color:#315BA6 ; font-size: 20px;">
+    Nous contacter
+    <div class="flex items-center ml-2">
+      <div class="w-0 h-px bg-turquoise"></div>
+      <svg class="w-6 h-6 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+    </svg>
+    </div>
+  </a>
+</div>
+                  </div>
+                  
+                  <div class="col-lg-6">
+                    <img src="../static/assets/images/group 10.png" alt="Image À Propos" class="img ">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="ctct" class="py-5 animate-element" data-animation="fadeInUp" style="height: fit-content;">
+      {% include 'contact.html' %}
+    </section>
+{% include 'footer.html' %}
+
+</body>
+
+<style>
+    .section_our_solution .row {
+  align-items: center;
+}
+
+.our_solution_category {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.our_solution_category .solution_cards_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.solution_cards_box .solution_card {
+  flex: 0 50%;
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
+    0 5px 15px 0 rgba(37, 44, 97, 0.15);
+  border-radius: 15px;
+  margin: 8px;
+  padding: 10px 15px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  min-height: 265px;
+  transition: 0.7s;
+}
+
+.solution_cards_box .solution_card:hover {
+  background: #acd5f5;
+  color: #fff;
+  transform: scale(1.1);
+  z-index: 9;
+}
+
+.solution_cards_box .solution_card:hover::before {
+  background: rgb(85 108 214 / 10%);
+}
+
+.solution_cards_box .solution_card:hover .solu_title h3,
+.solution_cards_box .solution_card:hover .solu_description p {
+  color: #fff;
+}
+
+.solution_cards_box .solution_card:before {
+  content: "";
+  position: absolute;
+  background: rgb(85 108 214 / 5%);
+  width: 170px;
+  height: 400px;
+  z-index: -1;
+  transform: rotate(42deg);
+  right: -56px;
+  top: -23px;
+  border-radius: 35px;
+}
+
+.solution_cards_box .solution_card:hover .solu_description button {
+  background: #fff !important;
+  color: #309df0;
+}
+
+.solution_card .so_top_icon {
+}
+
+.solution_card .solu_title h3 {
+  color: #212121;
+  font-size: 1.3rem;
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
+.solution_card .solu_description p {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.solution_card .solu_description button {
+  border: 0;
+  border-radius: 15px;
+  background: linear-gradient(
+    140deg,
+    #42c3ca 0%,
+    #42c3ca 50%,
+    #42c3cac7 75%
+  ) !important;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 5px 16px;
+}
+
+.our_solution_content h1 {
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+.our_solution_content p {
+}
+
+.hover_color_bubble {
+  position: absolute;
+  background: rgb(54 81 207 / 15%);
+  width: 100rem;
+  height: 100rem;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  top: 16rem;
+  border-radius: 50%;
+  transform: rotate(-36deg);
+  left: -18rem;
+  transition: 0.7s;
+}
+
+.solution_cards_box .solution_card:hover .hover_color_bubble {
+  top: 0rem;
+}
+
+.solution_cards_box .solution_card .so_top_icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.solution_cards_box .solution_card .so_top_icon img {
+  width: 40px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/*start media query*/
+@media screen and (min-width: 320px) {
+  .sol_card_top_3 {
+    position: relative;
+    top: 0;
+  }
+
+  .our_solution_category {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .our_solution_category .solution_cards_box {
+    flex: auto;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .our_solution_category .solution_cards_box {
+    flex: 1;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .sol_card_top_3 {
+    position: relative;
+    top: -3rem;
+  }
+  .our_solution_category {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
+
+</style>
