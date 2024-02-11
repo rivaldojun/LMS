@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  {% with currentPage='academy' %}
+  {% include 'navbar.html' %}
+{% endwith %}
+
+    <div class="container">
+      <div class="w-2/4">
+        <div class="text-center mt-8">
+            <h2 class="font-extrabold relative mb-4" style="font-size: 28px; color: blue;">Evenements</h2>
+            <div class="w-16 h-1 bg-blue-900 mx-auto" style="background-color: blue;"></div>
+        </div>
+    </div>
+      </div>
+      <div class="mt-4" >
+        <div class="img bg-opacity-20 p-1 " style="height: fit-content;font-family: 'Raleway';padding: 10px;" >
+          <div class="container " style="background-image:url(../static/assets/conferences.jfif);padding: 30px;border-radius: 20px;height: fit-content;">
+            <h1 class=" font-semibold " style="color: rgb(255, 255, 255);">CONFERENCES</h1>
+            <p class="font-medium  text-justify mt-3 mb-4" style="color: white;">
+              Échangez des Idées et Restez Informé. <br>Chez LMS INVENTION, nous croyons en le partage des<br> connaissances et en l'exploration des dernières tendances et innovations<br> dans les domaines de l’intelligence artificielle, l'ingénierie, de la digitalisation<br> et de l'industrie 4.0. Nos conférences offrent une opportunité<br> unique d'entendre des experts de l'industrie, de participer à des discussions stimulantes et de rester<br> informé des évolutions passionnantes.
+            </p>
+            <div class="flex justify-between items-center">
+              <a href="/conferences" class="flex items-center text-white  font-semibold px-4 py-2 rounded-lg" style="background-color:#315BA6 ; font-size: 20px;">
+                Voir nos conferences
+                <div class="flex items-center ml-2">
+                  <div class="w-0 h-px bg-turquoise"></div>
+                  <svg class="w-6 h-6 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 mb-5">
+        <div class="img bg-opacity-20 p-1" style="height: fit-content;font-family: 'Raleway';padding: 10px;">
+          <div class="container" style="background-image:url(../static/assets/form.jfif);padding: 30px;border-radius: 20px;height: fit-content">
+            <h1 class=" font-semibold" style="color: rgb(255, 255, 255)">FORMATIONS</h1>
+            <p class="font-medium text-white text-justify mt-3 mb-4">
+              Investissez dans Votre Savoir. Les formations de LMS INVENTION <br>sont dédiées à l'apprentissage continu et au développement des compétences.<br> Nous croyons que l'acquisition de connaissances est essentielle pour prospérer dans le<br> monde en constante évolution de l’intelligence artificielle, <br>l'ingénierie, de la digitalisation et de l'industrie 4.0.<br> Nos formations sont conçues pour vous donner les compétences nécessaires<br> pour exceller dans votre domaine.
+            </p>
+            <div class="flex justify-between items-center">
+              <a href="/formations" class="flex items-center text-white  font-semibold px-4 py-2 rounded-lg" style="background-color:#315BA6 ; font-size: 20px;">
+                Voir nos formation
+                <div class="flex items-center ml-2">
+                  <div class="w-0 h-px bg-turquoise"></div>
+                  <svg class="w-6 h-6 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+{% include 'footer.html' %}
+</body>
+</html>

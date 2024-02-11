@@ -17,7 +17,6 @@
   {% include 'navbar.html' %}
   {% endwith %}
 
-  <a href="{{ url_for('add_blog') }}" class="btn btn mt-3 ml-3" style="background-color: black;border-radius: 50px;color: white;"><i class="fa fa-plus"></i> Ajouter un élément</a>
 
   <div class="mb-4">
     <div class="ml-5 mt-5 animate-element" data-animation="fadeInUp" style="animation-duration: 0.6s;">
@@ -32,7 +31,7 @@
         {% if blogs: %}
           {% for blog in blogs: %}
             <div class="hover:scale-105 transition-transform animate-element" data-animation="fadeInUp" style="background-color: rgb(215, 232, 250);border-radius: 20px;padding: 10px;animation-duration: 0.8s;">
-              <img src="{{ url_for('static', filename=blog.imagePath) }}" alt="{{ blog.titre }}" class="rounded">
+              <img src="{{blog.imagePath}}" alt="{{ blog.titre }}" class="rounded">
               <div class="p-3">
                 <p class="text-xl font-bold text-primary-first mt-2">
                   {{ blog.titre }}
@@ -42,11 +41,11 @@
                   {{ truncated_content }}...
                 </p>
                 <div class="mt-5">
-                  <a href="{{ url_for('details_blog', blog_id=blog.id) }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;">
+                  <a href="{{ url_for('details_blog', id=blog.id) }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;">
                     En savoir plus
-                    <img src="{{ url_for('static', filename='assets/images/Arrow 1.png') }}" alt="" class="ml-2" style="width: 20px;">
+                    <img src="{{ url_for('static', filename='../static/assets/images/Arrow 1.png') }}" alt="" class="ml-2" style="width: 20px;">
                   </a>
-                  <a href="{{ url_for('delete_blog', blog_id=blog.id) }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;">
+                  <a href="{{ url_for('supprimer_blog', id=blog.id) }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;padding: 13px;">
                     Supprimer
                   </a>
                 </div>

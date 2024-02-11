@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Postulants</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    {% with currentPage='' %}
+    {% include 'navbar_admin.html' %}
+    {% endwith %}
+    <div class="container mt-5">
+        <h2>Liste des Postulants</h2>
+        <div class="row mt-3">
+            {% for postul in postuls %}
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ postul.name }}</h5>
+                        <p class="card-text"><strong>Email:</strong> {{ postul.email }}</p>
+                        <p class="card-text"><strong>Message:</strong> 
+                            {% if postul.message|length > 20 %}
+                                {{ postul.message[:20] }}...
+                            {% else %}
+                                {{ postul.message }}
+                            {% endif %}
+                        </p>                      
+                        <p class="card-text"><strong>CV:</strong> <a href="../{{ postul.cv }}" download>{{ postul.cv }}</a></p>
+                    </div>
+                    <a class="btn btn-primary" href="/voir_candidats/{{postul.id}}" >Voir en details</a>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<head>
+    <title>LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+
+
+    
+{% with currentPage='' %}
+{% include 'navbar.html' %}
+{% endwith %}
+    <style>
+    
+        .toggle-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #315BA6;
+            color: #fff;
+            cursor: pointer;
+        }
+    
+        .toggle-button:hover {
+            background-color: #24417C;
+        }
+    
+        .form-container {
+            padding: 20px;
+            display: none;
+        }
+    
+        .form-container.active {
+            display: block;
+        }
+    
+        .input-group {
+            margin: 10px 0;
+        }
+    
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    
+        .check-box {
+            margin-right: 5px;
+        }
+    
+        .submit-btn {
+            background-color: #315BA6;
+            color: #fff;
+            border: none;
+
+            cursor: pointer;
+        }
+    
+        .submit-btn:hover {
+            background-color: #24417C;
+        }
+    </style>
+    <body >
+    <div class="container" style="min-height: 400px;">
+        <div class="social-icons">
+            <h4>Follow Us</h4>
+            <br>
+            <div style="display: flex; justify-content: center;">
+                <a href="https://www.linkedin.com/company/lms-invention/" class="ml-5 text-neutral-800 dark:text-neutral-200">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z"
+                            stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M6 9H2V21H6V9Z" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z"
+                            stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="toggle-button" id="toggleButton">
+            <span id="loginText" style="text-align: center;">Log In</span>
+            <span id="signupText" style="display: none;text-align: center;">Sign Up</span>
+        </div>
+        <div class="container form-container active" id="loginForm">
+            <form method="POST" class="input-group">
+                <input type="text" name="name" class="input-field" placeholder="Name" required="">
+                <input type="text" name="password" class="input-field" placeholder="Enter Password" required="">
+                <input type="checkbox" class="check-box"><span>Remember Password</span>
+                <button type="submit" class="btn btn-p">Log In</button>
+            </form>
+        </div>
+        <div class="container form-container" id="signupForm" style="display: none;" >
+            <form method="POST" class="input-group" action="/register">
+                <input type="text" name="name" class="input-field" placeholder="Name" required="">
+                <input type="email" name="email" class="input-field" placeholder="Email" required="">
+                <input type="text" name="function" class="input-field" placeholder="Function or Occupation" required="">
+                <input type="text" name="password" class="input-field" placeholder="Enter Password" required="">
+                <input type="checkbox" name="agreedToTerms" class="check-box"><span>I agree to the terms & conditions</span>
+                <br><br>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const toggleButton = document.getElementById('toggleButton');
+        const loginText = document.getElementById('loginText');
+        const signupText = document.getElementById('signupText');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+    
+        toggleButton.addEventListener('click', () => {
+            if (loginForm.style.display === 'block') {
+                loginForm.style.display = 'none';
+                loginText.style.display = 'none';
+                signupForm.style.display = 'block';
+                signupText.style.display = 'block';
+            } else {
+                signupForm.style.display = 'none';
+                signupText.style.display = 'none';
+                loginForm.style.display = 'block';
+                loginText.style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+{% include 'footer.html' %}
+
+</html>

@@ -53,7 +53,7 @@
                 </div>
                 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
-                <a class="navbar-brand" href="/"><img style="height: 50px;width: 50px;"  src="../static/assets/images/lms-logo-removebg-preview.png" alt=""/></a>
+                <a class="navbar-brand" href="/"><img style="height: 50px;width: 50px;"  src="/static/assets/images/lms-logo-removebg-preview.png" alt=""/></a>
                 <form action="#" class="searchform order-sm-start order-lg-last">
                 <div class="form-group d-flex">
                 <input type="text" class="form-control pl-3" placeholder="Search">
@@ -65,16 +65,22 @@
                 </button>
                 <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav m-auto">
-                    <li class="<%= currentPage === 'home' ? 'active' : '' %>"><a href="/" class="mx-2 font-medium hover:text-gray-900  text-center ">Home</a></li>
-                    <li class="<%= currentPage === 'blog' ? 'active' : '' %>"><a href="/actualites" class="mx-2 font-medium hover:text-gray-900 text-center  ">Blog</a></li>
-                    <li class="<%= currentPage === 'academy' ? 'active' : '' %>"> <a href="/evenement" class="mx-2 font-medium hover:text-gray-900  text-center  ">LMS ACADÉMIE</a></li>
-                    <li class="<%= currentPage === 'carriere' ? 'active' : '' %>"><a href="/opportunite" class="mx-2 font-medium hover:text-gray-900  text-center  ">Carrière</a></li>
-                    <li class="<%= currentPage === 'projet' ? 'active' : '' %>"> <a href="/projet" class="mx-2 font-medium hover:text-gray-900 text-center  ">Projets</a></li>
-                    <li class="<%= currentPage === 'equipe' ? 'active' : '' %>"> <a href="/team" class="mx-2 font-medium hover:text-gray-900  text-center">Equipe</a></li>
-                    <li class="mb-2 <%= currentPage === 'contact' ? 'active' : '' %>"> <a href="/contacte" class="mx-2 font-medium hover:text-gray-900  text-center mb-5" >Contact</a></li>
+                  <li class="{{ 'active' if currentPage == 'home' else '' }}"><a href="/" class="mx-2 font-medium hover:text-gray-900 text-center">Home</a></li>
+                  <li class="{{ 'active' if currentPage == 'blog' else '' }}"><a href="/actualites" class="mx-2 font-medium hover:text-gray-900 text-center">Blog</a></li>
+                  <li class="{{ 'active' if currentPage == 'academy' else '' }}"><a href="/evenement" class="mx-2 font-medium hover:text-gray-900 text-center">LMS ACADÉMIE</a></li>
+                  <li class="{{ 'active' if currentPage == 'carriere' else '' }}"><a href="/opportunite" class="mx-2 font-medium hover:text-gray-900 text-center">Carrière</a></li>
+                  <li class="{{ 'active' if currentPage == 'projet' else '' }}"><a href="/projet" class="mx-2 font-medium hover:text-gray-900 text-center">Projets</a></li>
+                  <li class="{{ 'active' if currentPage == 'equipe' else '' }}"><a href="/team" class="mx-2 font-medium hover:text-gray-900 text-center">Equipe</a></li>
+                  <li class="mb-2 {{ 'active' if currentPage == 'contact' else '' }}"><a href="/contacte" class="mx-2 font-medium hover:text-gray-900 text-center mb-5">Contact</a></li>
+                  
                 
                 </ul>
-                <li class="list-unstyled"> <a href="/log" class="ml-2 btn btn mx-2" style="background-color: transparent;color: rgb(61, 45, 239);text-align: center;width: fit-content;margin-top: -8px;border-radius: 50px;opacity: 1;">Espace membres</a>  </li>  
+                <li class="list-unstyled">
+                  <a href="/log" class="ml-2 btn btn mx-2 mt-1" style="background-color: rgb(165, 210, 255); color: rgb(79, 79, 79); text-align: center; width: fit-content; margin-top: -8px; border-radius: 50px; opacity: 1; padding: 10px 20px; font-size: 16px; font-weight: bold; text-decoration: none;">
+                      Espace membres
+                  </a>
+              </li>
+              
                 </div>
                 </div>
                 </nav>

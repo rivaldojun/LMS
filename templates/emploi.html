@@ -21,16 +21,17 @@
           <div class="row align-items-start">
               <div class="col-lg-8 m-15px-tb">
                   <article class="article">
+                    <div style="float: right;" class="media">
+                      <a href="https://www.linkedin.com/company/lms-invention/"><i class="fab fa-linkedin"></i> Rejoignez-nous sur Linkedin</a>
+                  </div>
                       <div class="article-img">
                           <img src="{{ offre.imagePath }}" title="" alt="">
                       </div>
                       <div class="article-title">
                           <h6><a href="#">{{ offre.type }}</a></h6>
                           <h2>{{ offre.fonc }}</h2>
-                          <h6>{{ offre.date }}</h6>
-                          <div class="media">
-                              <a href="https://www.linkedin.com/company/lms-invention/"><i class="fab fa-linkedin"></i></a>
-                          </div>
+                          <h6>{{ offre.date.strftime('%d %B %Y') }}</h6>
+                      
                       </div>
                       <div class="article-content">
                           <p>{{ offre.description }}</p>
@@ -38,11 +39,11 @@
                   </article>
                   <div class="contact-form article-comment">
                       <h4>Postuler Ici</h4>
-                      <form id="contact-form" method="POST" enctype="multipart/form-data">
+                      <form id="contact-form" method="POST" action="/postul/{{offre.id}}" enctype="multipart/form-data">
                           <div class="row">
                               <div class="col-md-12">
                                   <div class="form-group">
-                                      <input name="titre" id="titre" value="{{ offre.fonc }}" class="form-control" type="text">
+                                      <input name="titre" id="titre" value="{{ offre.fonc }}" class="form-control" type="text" readonly>
                                   </div>
                               </div>
                               <div class="col-md-6">

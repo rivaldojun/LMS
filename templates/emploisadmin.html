@@ -15,7 +15,7 @@
 
 <body>
     {% with currentPage='' %}
-    {% include 'navbar.html' %}
+    {% include 'navbar_admin.html' %}
 {% endwith %}
 
 <a href="/addoffer" class="btn btn mt-3 ml-3" style="background-color: black;border-radius: 50px;color: white;"><i class="fa fa-plus"></i>Ajouter une element</a>
@@ -42,10 +42,11 @@
                             </div>
                         </div>
                         <div class="mt-1">
-                            <a href="/emploi/{{ offer.id }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;border-radius: 50px;">
+                            <a href="/emploi/{{ offer.id }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;border-radius: 50px;scale: 0.7;">
                                 En savoir plus
                                 <img src="../static/assets/images/Arrow 1.png" alt="" class="ml-2" style="width: 20px;">
                             </a>
+                            <a href="/candidats/{{ offer.id }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;border-radius: 50px;">Candidats</a>
                             <a href="/supprimeremploi/{{ offer.id }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;border-radius: 50px;">supprimer
                             </a>
                         </div>

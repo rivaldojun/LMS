@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,redirect,session,jsonify
+from flask import Flask, render_template,request,redirect,session,jsonify,url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -12,6 +12,30 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.secret_key = '123'
 db = SQLAlchemy(app)
+
+
+def send_email(sender_email, recipient_email, subject, body):
+    msg = MIMEMultipart()
+    msg['Subject'] = subject
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    html_content = MIMEText(body, 'html')
+    msg.attach(html_content)
+    # Paramètres de connexion au serveur SMTP
+    # Paramètres de connexion SMTP
+    smtp_host = 'mail.lms-invention.com'  # Remplacez par le serveur SMTP de votre e-mail
+    smtp_port = 465  # Port SMTP approprié
+    smtp_user = 'info@lms-invention.com'  # Votre adresse e-mail
+    smtp_password = 'LMSINV@info23'  # Mot de passe de votre adresse e-mail
+
+    # Configuration et envoi de l'e-mail
+    try:
+        with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+            server.login(smtp_user, smtp_password)
+            server.send_message(msg)
+        return True
+    except Exception as e:
+        return False
 
 #Model class
 
@@ -55,7 +79,7 @@ class Offre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String)
     description = db.Column(db.String)
-    imagePath = db.Column(db.String, default="../assets/images/lms-logo-removebg-preview.png")
+    imagePath = db.Column(db.String, default="../static/assets/images/lms-logo-removebg-preview.png")
     fonc = db.Column(db.String, default="")
     date = db.Column(db.DateTime, default=datetime.now)
 
@@ -64,6 +88,7 @@ class Conference(db.Model):
     titre = db.Column(db.String)
     description = db.Column(db.String)
     imagePath = db.Column(db.String)
+    conferecier=db.Column(db.String)
     lien = db.Column(db.String)
     lieu = db.Column(db.String, default="")
     date = db.Column(db.DateTime, default=datetime.now)
@@ -90,10 +115,31 @@ class CommentaireFormation(db.Model):
     date = db.Column(db.DateTime)
     formation_id = db.Column(db.Integer, db.ForeignKey('content_formation.id'))
 
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    subject = db.Column(db.String(100))
+    statut = db.Column(db.String(100),default="En attente")
+    message = db.Column(db.Text)
+    date=db.Column(db.DateTime, default=datetime.now)
+
+class Postul(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    titre = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    message = db.Column(db.Text)
+    cv = db.Column(db.String(255))
+    post_id = db.Column(db.Integer, db.ForeignKey('offre.id'))
+    
+
 
 with app.app_context():
         db.create_all()
 #end model
+
+
 
 @app.route('/submit-form', methods=['POST'])
 def submit_form():
@@ -120,10 +166,211 @@ def submit_form():
             server.login(smtp_user, smtp_password)
             server.sendmail(smtp_user, 'info@lms-invention.com', msg.as_string())
 
-        return render_template('confirmation_postul.html', message='Nous vous reviendrons dans les délais dès que possible', title='Votre message a été soumis avec succès', image='../assets/newsletter.jfif')
+        new_message = Message(name=name, email=email, subject=subject, message=message)
+        # Ajouter l'instance à la session SQLAlchemy et committez les changements
+        db.session.add(new_message)
+        db.session.commit()
+        print(new_message)
+        return redirect(url_for('auto_reply_message',message_id=new_message.id))
     except Exception as e:
         print(e)
-        return render_template('confirmation_postul.html', message='Erreur, veuillez réessayer dans un moment', title='Veuillez réessayer dans un moment', image='../assets/wrong.jfif')
+        return render_template('confirmation_postul.html', message='Erreur, veuillez réessayer dans un moment', title='Veuillez réessayer dans un moment', image='../static/assets/wrong.jfif')
+
+
+@app.route('/messages')
+def messages():
+    # Code pour récupérer la liste des messages depuis la base de données
+    # Remplacer cette ligne par votre propre code pour récupérer les messages
+    messages = Message.query.all()
+    return render_template('messages.html', messages=messages)
+
+@app.route('/view_message/<int:message_id>')
+def view_message(message_id):
+    # Code pour récupérer les détails du message avec l'ID donné depuis la base de données
+    # Remplacer cette ligne par votre propre code pour récupérer les détails du message
+    message = Message.query.get_or_404(message_id)
+    return render_template('view_message.html', message=message)
+
+@app.route('/delete_message/<int:message_id>', methods=['GET', 'POST'])
+def delete_message(message_id):
+    # Code pour supprimer le message avec l'ID donné de la base de données
+    # Remplacer cette ligne par votre propre code pour supprimer le message
+    message = Message.query.get_or_404(message_id)
+    if request.method == 'POST':
+        db.session.delete(message)
+        db.session.commit()
+        return redirect(url_for('messages'))  # Rediriger vers la liste des messages
+    return render_template('delete_message.html', message_id=message_id)
+
+
+@app.route('/reply_message/<int:message_id>', methods=['GET', 'POST'])
+def reply_message(message_id):
+    # Code pour récupérer le message avec l'ID donné de la base de données
+    # Remplacer cette ligne par votre propre code pour récupérer le message
+    message = Message.query.get_or_404(message_id)
+    if request.method == 'POST':
+        # Récupérer la réponse du formulaire
+        reply = request.form['reply']
+        subject = 'Reponse'
+        body = f'''
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Stylize the email with CSS */
+        body {{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }}
+        
+        .container {{
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff; /* Lernender blue */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: white;
+            text-align: center;
+        }}
+        
+        h1 {{
+            color: #3498db; /* Lernender blue */
+            font-size: 36px;
+            margin-bottom: 10px;
+        }}
+        
+        p {{
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+        }}
+        
+        .code {{
+            font-size: 42px;
+            font-weight: bold;
+        }}
+        
+        
+        .thank-you {{ 
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 20px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span >LMS-INVENTION</span></h1>
+        <p>{reply}</p>
+        <p class="code"></p>
+        
+        <div class="thank-you">
+            <p>Merci encore et à bientôt chez <span style="color: blue;" >LMS-INVENTION</span> !</p>
+        </div>
+        <img src="/static/assets/images/lms-logo-removebg-preview.png" style="height: 50px;width: 50px;display:flex;">
+    </div>
+</body>
+</html>
+'''
+        sender_email =  'info@lms-invention.com'
+        send_email(sender_email, message.email, subject, body)
+        message.statut="Repondu"
+        db.session.commit()
+        return redirect(url_for('messages'))
+    return render_template('reply_message.html', message_id=message_id)
+
+
+@app.route('/auto_reply_message/<int:message_id>', methods=['GET', 'POST'])
+def auto_reply_message(message_id):
+    # Code pour récupérer le message avec l'ID donné de la base de données
+    # Remplacer cette ligne par votre propre code pour récupérer le message
+        message = Message.query.get_or_404(message_id)
+        image_url = url_for('static', filename='assets/images/lms-logo-removebg-preview.png')
+        # Récupérer la réponse du formulaire
+        subject = 'Nous traitons votre préoccupation'
+        body = f'''
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Stylize the email with CSS */
+        body {{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }}
+        
+        .container {{
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff; /* Lernender blue */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: white;
+        }}
+        
+        h1 {{
+            color: #3498db; /* Lernender blue */
+            font-size: 36px;
+            margin-bottom: 10px;
+        }}
+        
+        p {{
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+        }}
+        
+        .code {{
+            font-size: 42px;
+            font-weight: bold;
+        }}
+        
+        
+        .thank-you {{ 
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 20px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span >LMS-INVENTION</span></h1>
+        <div style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6;">
+            <p>Bonjour {message.name}</p><br>
+            <p>Nous vous remercions de votre prise de contact et accusons réception de votre demande .</p>
+            <p>Notre délai de réponse actuel est en moyenne de 2 à 5 heures. Nous faisons le nécessaire pour vous apporter une solution le plus rapidement possible.</p>
+            <br>
+            <p>Petite astuce, vérifiez vos courriers indésirables et vos spams, nos réponses peuvent s’y glisser.</p><br>
+            <p>Pour être plus efficace, nous vous demandons de ne pas multiplier vos demandes : tickets multipliés = temps de traitement allongé. En effet, chaque demande équivaut à un ticket ouvert pour notre service clientèle par ordre d'ancienneté. Si celles-ci sont multipliées, cela aura pour conséquence d'allonger le temps de réponse.</p><br>
+            <p>En attendant, permettez-nous de partager avec vous notre <a href="/faq" style="color: #0066cc; text-decoration: underline;">FAQ</a>. Vous y trouverez peut-être des réponses à votre question.</p>
+            <br>
+            <p>Nous vous remercions de votre confiance.</p>
+            <p>L'équipe LMS-INVENTION</p>
+        </div>
+        
+        <div class="thank-you">
+            <p>Merci encore et à bientôt chez <span style="color: blue;" >LMS-INVENTION</span> !</p>
+            <img src="{image_url}" style="height: 50px;width: 50px;display:flex;">
+
+        </div>
+        
+    </div>
+</body>
+</html>
+'''
+        sender_email =  'info@lms-invention.com'
+        print(sender_email)
+        send_email(sender_email, message.email, subject, body)
+        print(message.email)
+        print("envoyer")
+        return render_template('confirmation_postul.html', message='Nous vous reviendrons dans les délais dès que possible', title='Votre message a été soumis avec succès', image='../static/assets/newsletter.jfif')
 
 
 @app.route('/submit-offer', methods=['POST'])
@@ -161,10 +408,10 @@ def submit_offer():
         with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
             server.login(smtp_user, smtp_password)
             server.sendmail(smtp_user, 'info@lms-invention.com', msg.as_string())
-        return render_template('confirmation_postul.html', message='Nous vous reviendrons après analyse de votre dossier', title='Votre dossier a été soumis avec succès', image='../assets/newsletter.jfif')
+        return render_template('confirmation_postul.html', message='Nous vous reviendrons après analyse de votre dossier', title='Votre dossier a été soumis avec succès', image='../static/assets/newsletter.jfif')
     except Exception as e:
         print(e)
-        return render_template('confirmation_postul.html', message='Erreur du serveur, veuillez réessayer dans un moment', title='Veuillez réessayer dans un moment', image='../assets/wrong.jfif')
+        return render_template('confirmation_postul.html', message='Erreur du serveur, veuillez réessayer dans un moment', title='Veuillez réessayer dans un moment', image='../static/assets/wrong.jfif')
 
 
 @app.route('/souscription_conf/<int:id>', methods=['POST'])
@@ -178,26 +425,28 @@ def souscription_conf(id):
         db.session.add(souscription)
         db.session.commit()
 
-        return render_template('confirmation_postul.html', message='Nous vous enverrons le lien de la conférence très prochainement', title='Vous êtes désormais parmi les participants de cette conférence')
+        return render_template('confirmation_postul.html', message='Nous vous enverrons le lien de la conférence très prochainement', title='Vous êtes désormais parmi les participants de cette conférence',image='../static/assets/newsletter.jfif')
     except Exception as e:
         print(e)
-        return render_template('confirmation_postul.html', message='Erreur du serveur', title='Veuillez réessayer dans un moment', image='../assets/wrong.jfif')
+        return render_template('confirmation_postul.html', message='Erreur du serveur', title='Veuillez réessayer dans un moment', image='../static/assets/wrong.jfif')
 
 @app.route('/souscription_form/<int:id>', methods=['POST'])
 def souscription_form(id):
-    try:
+    try: 
         userName = request.form['userName']
         userEmail = request.form['userEmail']
         subscribeToNotifications = True if request.form.get('notif') == 'on' else False
-
-        souscription = SouscriptionFormation(name=userName, email=userEmail, sub=subscribeToNotifications)
-        db.session.add(souscription)
-        db.session.commit()
-
-        return redirect(f'/formation/{id}')
+        user=SouscriptionFormation.query.filter_by(email=userEmail).first()
+        session['userName']=userName
+        if user:
+            return redirect(f'/formation/{id}')
+        else:
+            souscription = SouscriptionFormation(name=userName, email=userEmail, sub=subscribeToNotifications)
+            db.session.add(souscription)
+            db.session.commit()
+            return redirect(f'/formation/{id}')
     except Exception as e:
-        print(e)
-        return render_template('confirmation_postul.html', message='Erreur lors de la soumission du formulaire', title='Veuillez réessayer dans un moment', image='../assets/wrong.jfif')
+        return render_template('confirmation_postul.html', message='Erreur lors de la soumission du formulaire', title='Veuillez réessayer dans un moment', image='../static/assets/wrong.jfif')
 
 
 @app.route('/newsletter', methods=['POST'])
@@ -210,7 +459,7 @@ def newsletter():
 
         # Si l'abonné existe déjà, renvoyer une réponse appropriée
         if existing_subscriber:
-            return render_template('newsletter_msg.html', message=f'Cet adresse mail {email} est déjà abonné à notre newsletter', title='OOPS...', image='../assets/wrong.jfif')
+            return render_template('newsletter_msg.html', message=f'Cet adresse mail {email} est déjà abonné à notre newsletter', title='OOPS...', image='../static/assets/wrong.jfif')
 
         # Si l'abonné n'existe pas, ajouter un nouvel enregistrement
         new_subscriber = Newsletter(email=email)
@@ -218,10 +467,10 @@ def newsletter():
         db.session.commit()
 
         # Réponse de succès
-        return render_template('newsletter_msg.html', message='Vous recevrez prochainement le prochain numéro de notre newsletter.', title='Merci de vous être abonné', image='../assets/newsletter.jfif')
+        return render_template('newsletter_msg.html', message='Vous recevrez prochainement le prochain numéro de notre newsletter.', title='Merci de vous être abonné', image='../static/assets/newsletter.jfif')
     except Exception as e:
         print(e)
-        return render_template('newsletter_msg.html', message='Erreur lors de l\'abonnement à la newsletter', title='Veuillez réessayer dans un moment', image='../assets/wrong.jfif')
+        return render_template('newsletter_msg.html', message='Erreur lors de l\'abonnement à la newsletter', title='Veuillez réessayer dans un moment', image='../static/assets/wrong.jfif')
 
 
 
@@ -252,6 +501,11 @@ def faq():
 @app.route('/log', methods=['GET'])
 def log():
     return render_template('log.html', errorMessage='')
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop('isLoggedIn', None)
+    return redirect(url_for('homepage'))
 
 @app.route('/adminpage', methods=['GET'])
 def admin_page():
@@ -314,8 +568,9 @@ def add_formations_admin():
 @app.route('/addformationadmin/<int:id>', methods=['GET'])
 def add_formation_admin(id):
     if 'isLoggedIn' in session and session['isLoggedIn']:
-        formations = ContentFormation.query.filter_by(theme_formation_id=id).all()
-        return render_template('formationadmin.html', formations=formations, idform=id)
+        formations = ContentFormation.query.filter_by(theme_id=id).all()
+        formation = ThemeFormation.query.filter_by(id=id).first()
+        return render_template('formationadmin.html', formations=formations, idform=id,formation=formation)
     else:
         return 'Impossible'
 
@@ -357,22 +612,27 @@ def add_projet_admin():
 def regist():
     return render_template('regist.html', errorMessage='')
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['POST','GET'])
 def register():
-    name = request.form['name']
-    email = request.form['email']
-    func = request.form['function']
-    password = request.form['password']
-    confpassword = request.form['confpassword']
-    hashed_password =generate_password_hash(password)
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        func = request.form['function']
+        password = request.form['password']
+        confpassword = request.form['confpassword']
+        hashed_password = generate_password_hash(password)
 
-    if password == confpassword:
-        registration = Registration(name=name, email=email, func=func, password=hashed_password)
-        db.session.add(registration)
-        db.session.commit()
-        return redirect('/log')
+        if password == confpassword:
+            registration = Registration(name=name, email=email, func=func, password=hashed_password)
+            db.session.add(registration)
+            db.session.commit()
+            return redirect('/log')
+        else:
+            return render_template('regist.html', errorMessage='Mot de passe non correspondant')
     else:
-        return render_template('regist.html', errorMessage='Mot de passe non correspondant')
+        # Gérer le cas où la méthode est GET (chargement initial de la page)
+        return render_template('regist.html')
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -393,9 +653,9 @@ def enregistrer_article():
     titre = request.form['titre']
     contenu = request.form['contenu']
     image = request.files['image']
-    image_path = os.path.join('assets', 'images_1', image.filename)
-    image.save(image_path)
-    article = Blog(titre=titre, description=contenu, image_path=image_path)
+    imagePath = os.path.join('static','assets', 'images_1', image.filename)
+    image.save(imagePath)
+    article = Blog(titre=titre, description=contenu, imagePath=imagePath)
     db.session.add(article)
     db.session.commit()
     return redirect('/confirmationblog')
@@ -405,13 +665,14 @@ def enregistrer_article():
 def enregistrer_event():
     titre = request.form['titre']
     description = request.form['contenu']
+    conferencier = request.form['conferencier']
     lieu = request.form['lieu']
-    date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+    date = datetime.strptime(request.form['date'], '%Y-%m-%dT%H:%M')
     image = request.files['image']
-    image_path = os.path.join('assets', 'images_1', image.filename)
-    image.save(image_path)
+    imagePath = os.path.join('static','assets', 'images_1', image.filename)
+    image.save(imagePath)
     lien = request.form['lien']
-    conference = Conference(titre=titre, description=description, lieu=lieu, date=date, image_path=image_path, lien=lien)
+    conference = Conference(titre=titre, description=description, lieu=lieu, date=date, imagePath=imagePath, lien=lien,conferencier=conferencier)
     db.session.add(conference)
     db.session.commit()
     return redirect('/confirmationevent')
@@ -427,17 +688,18 @@ def enregistrer_formation():
     return redirect('/confirmationformation')
 
 # Route pour enregistrer une offre
-@app.route('/enregistrer-offer', methods=['POST'])
+@app.route('/enregistrer-offer', methods=['POST','GET'])
 def enregistrer_offer():
-    annonce_type = request.form['annonce-type']
-    contenu = request.form['contenu']
-    fonc = request.form['fonc']
-    image = request.files['image']
-    image_path = os.path.join('assets', 'images_1', image.filename)
-    image.save(image_path)
-    offre = Offre(type=annonce_type, description=contenu, fonc=fonc, image_path=image_path)
-    db.session.add(offre)
-    db.session.commit()
+    if request.method == 'POST':
+        annonce_type = request.form['annonce-type']
+        contenu = request.form['contenu']
+        fonc = request.form['fonc']
+        image = request.files['image']
+        imagePath = os.path.join('static','assets', 'images_1', image.filename)
+        image.save(imagePath)
+        offre = Offre(type=annonce_type, description=contenu, fonc=fonc, imagePath=imagePath)
+        db.session.add(offre)
+        db.session.commit()
     return redirect('/confirmationoffre')
 
 # Route pour enregistrer un projet
@@ -446,9 +708,9 @@ def enregistrer_projet():
     titre = request.form['titre']
     description = request.form['contenu']
     image = request.files['image']
-    image_path = os.path.join('assets', 'images_1', image.filename)
-    image.save(image_path)
-    projet = Projet(titre=titre, description=description, image_path=image_path)
+    imagePath = os.path.join('static','assets', 'images_1', image.filename)
+    image.save(imagePath)
+    projet = Projet(titre=titre, description=description, imagePath=imagePath)
     db.session.add(projet)
     db.session.commit()
     return redirect('/confirmationprojet')
@@ -559,17 +821,19 @@ def addformcontent(id):
 @app.route('/formations')
 def formations():
     formations = ThemeFormation.query.all()
+    print(formations)
     return render_template('formations.html', formations=formations)
 
 @app.route('/formation/<int:id>')
 def formation(id):
-    formation = ThemeFormation.query.get_or_404(id)
-    return render_template('formation.html', formation=formation)
+    formations = ContentFormation.query.filter_by(theme_id=id).all()
+    formation = ThemeFormation.query.filter_by(id=id).first()
+    return render_template('formation.html', formations=formations,form=formation)
 
 @app.route('/comment/<int:idform>')
 def comment(idform):
     commentaires = CommentaireFormation.query.filter_by(formation_id=idform).all()
-    return render_template('commentaire.html', commentaires=commentaires)
+    return render_template('commentaire.html', commentaires=commentaires,idform=idform)
 
 @app.route('/enregistrer-commentaire/<int:idf>', methods=['POST'])
 def enregistrer_commentaire(idf):
@@ -579,7 +843,7 @@ def enregistrer_commentaire(idf):
     nouveau_commentaire = CommentaireFormation(contenu=contenu, auteur=userName, formation_id=idf, date=dateCommentaire)
     db.session.add(nouveau_commentaire)
     db.session.commit()
-    return redirect('/comment/' + idf)
+    return redirect(url_for('comment',idform=idf))
 
 @app.route('/emploi/<int:id>')
 def emploi(id):
@@ -596,19 +860,54 @@ def stage():
     offres = Offre.query.filter_by(type='stage').all()
     return render_template('emplois.html', offres=offres)
 
+@app.route('/postul/<int:id>', methods=['POST'])
+def postul(id):
+    if request.method == 'POST':
+        titre = request.form['titre']
+        name = request.form['Name']
+        email = request.form['Email']
+        message = request.form['message']
+        cv = request.files['fichiers']
+        
+        # Enregistrement du CV
+        if cv:
+            Path = os.path.join('static','assets', 'images_1', cv.filename)
+            cv.save(Path)
+        postul = Postul(titre=titre, name=name, email=email, message=message, cv=Path,post_id=id)
+        db.session.add(postul)
+        db.session.commit()
+
+    return redirect(url_for('emploi',id=id))
+
+
+@app.route('/voir_candidats/<int:postul_id>')
+def voir_candidats(postul_id):
+    # Code pour récupérer les informations du postulant avec l'ID donné
+    postulant = Postul.query.get_or_404(postul_id)
+    return render_template('details_candidats.html', postulant=postulant)
+
+@app.route('/candidats/<int:id>')
+def candidat(id):
+    postuls = Postul.query.filter_by(post_id=id).all()
+    print(postuls[0].cv)
+    return render_template('candidat.html', postuls=postuls)
+
 @app.route('/ajouter-formation/<int:id>', methods=['POST'])
 def ajouter_formation(id):
+    path_abs=[]
     try:
         idform = int(id)
         titre = request.form['titre']
         description = request.form['description']
         fichiers = request.files.getlist('fichiers[]')
-
+        for file in fichiers:
+            imagePath=os.path.join('static','assets','images_1', file.filename)
+            path_abs.append(imagePath)
+            file.save(imagePath)
         # Construction des chemins des fichiers
-        path = ', '.join(['/assets/images_1/' + file.filename for file in fichiers])
-
+        path = ','.join([file.filename for file in fichiers])
         # Enregistrement des données dans la base de données
-        nouvelle_formation = ContentFormation(titre=titre, description=description, path=path, themeFormationId=idform)
+        nouvelle_formation = ContentFormation(titre=titre, description=description, path=path, theme_id=idform)
         db.session.add(nouvelle_formation)
         db.session.commit()
 
@@ -620,10 +919,11 @@ def ajouter_formation(id):
 @app.route('/formationview/<int:idf>/<int:id>', methods=['GET'])
 def voir_formation(idf, id):
     try:
-        form = ContentFormation.query.filter_by(id=id, themeFormationId=idf).first()
+        form = ContentFormation.query.filter_by(id=id, theme_id=idf).first()
         if form:
-            commentaires = CommentaireFormation.query.filter_by(formationId=id).all()
+            commentaires = CommentaireFormation.query.filter_by(formation_id=id).all()
             formations = form.path.split(',')
+            print(formations)
             return render_template('formationview.html', form=form, formations=formations, idf=idf, commentaires=commentaires)
         else:
             return render_template('pas_element.html')
@@ -638,9 +938,9 @@ def supprimer_blog(id):
         if blog:
             db.session.delete(blog)
             db.session.commit()
-            return 'Blog supprimé avec succès.'
+            return render_template('confirmation_supp.html',message='supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')
         else:
-            return 'Blog non trouvé.'
+            return render_template('confirmation_supp.html',message='Element non trouvé .',title='Suppression',image='../static/assets/vecteur/delete.jpeg') 
     except Exception as error:
         print('Une erreur s\'est produite lors de la suppression du blog :', error)
         return 'Une erreur s\'est produite lors de la suppression du blog.', 500
@@ -648,13 +948,13 @@ def supprimer_blog(id):
 @app.route('/supprimerconfs/<int:id>', methods=['GET'])
 def supprimer_conference(id):
     try:
-        conference = Conference.query.get(id)
+        conference = Conference.query.filter_by(id=id).first()
         if conference:
             db.session.delete(conference)
             db.session.commit()
-            return 'Conférence supprimée avec succès.'
+            return render_template('confirmation_supp.html',message='supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')
         else:
-            return 'Conférence non trouvée.'
+            return render_template('confirmation_supp.html',message='Element non trouvé .',title='Suppression',image='../static/assets/vecteur/delete.jpeg') 
     except Exception as error:
         print('Une erreur s\'est produite lors de la suppression de la conférence :', error)
         return 'Une erreur s\'est produite lors de la suppression de la conférence.', 500
@@ -666,9 +966,9 @@ def supprimer_offre_emploi(id):
         if offre_emploi:
             db.session.delete(offre_emploi)
             db.session.commit()
-            return "Offre d'emploi supprimée avec succès."
+            return render_template('confirmation_supp.html',message='supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')
         else:
-            return "Offre d'emploi non trouvée."
+            return render_template('confirmation_supp.html',message='Element non trouvé .',title='Suppression',image='../static/assets/vecteur/delete.jpeg') 
     except Exception as error:
         print('Une erreur s\'est produite lors de la suppression de l\'offre d\'emploi :', error)
         return "Une erreur s'est produite lors de la suppression de l'offre d'emploi.", 500
@@ -677,13 +977,13 @@ def supprimer_offre_emploi(id):
 @app.route('/Supprimerformation/<int:idf>/<int:id>', methods=['GET'])
 def supprimer_contenu_formation(idf, id):
     try:
-        content_formation = ContentFormation.query.filter_by(id=id, theme_formation_id=idf).first()
+        content_formation = ContentFormation.query.filter_by(id=id, theme_id=idf).first()
         if content_formation:
             db.session.delete(content_formation)
             db.session.commit()
-            return 'Contenu de la formation supprimé avec succès.'
+            return render_template('confirmation_supp.html',message='Contenu de la formation supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')  
         else:
-            return 'Contenu de la formation non trouvé.'
+            return  render_template('confirmation_supp.html',message='Contenu de la formation non trouvé.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')  
     except Exception as error:
         print('Une erreur s\'est produite lors de la suppression du contenu de la formation :', error)
         return 'Une erreur s\'est produite lors de la suppression du contenu de la formation.', 500
@@ -695,9 +995,9 @@ def supprimer_formations(id):
         if theme_formation:
             db.session.delete(theme_formation)
             db.session.commit()
-            return 'Formations supprimées avec succès.'
+            return render_template('confirmation_supp.html',message='supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')
         else:
-            return 'Thème de formation non trouvé.'
+            return render_template('confirmation_supp.html',message='Element non trouvé .',title='Suppression',image='../static/assets/vecteur/delete.jpeg') 
     except Exception as error:
         print('Une erreur s\'est produite lors de la suppression des formations :', error)
         return 'Une erreur s\'est produite lors de la suppression des formations.', 500
@@ -710,9 +1010,9 @@ def supprimer_projet(id):
         if projet:
             db.session.delete(projet)
             db.session.commit()
-            return 'Projet supprimé avec succès.'
+            return render_template('confirmation_supp.html',message='supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')
         else:
-            return 'Projet non trouvé.'
+            return render_template('confirmation_supp.html',message='Element non trouvé.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')
     except Exception as error:
         print('Une erreur s\'est produite lors de la suppression du projet :', error)
         return 'Une erreur s\'est produite lors de la suppression du projet.', 500

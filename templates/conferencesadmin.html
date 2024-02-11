@@ -13,7 +13,7 @@
 
 <body>
     {% with currentPage='academy' %}
-        {% include 'navbar.html' %}
+    {% include 'navbar_admin.html' %}
     {% endwith %}
 
     <a href="/addevents" class="btn btn mt-3 ml-3" style="background-color: black;border-radius: 50px;color: white;"><i class="fa fa-plus"></i>Ajouter une element</a>
@@ -34,7 +34,7 @@
                             <img src="{{ conf.imagePath }}" alt="" style="height: 300px;">
                             <div class="events-date">
                                 <div class="font-size28">{{ conf.date.day }}</div> <!-- Jour -->
-                                <div class="font-size14">{{ conf.date|date('F') }}</div> <!-- Mois -->
+                                <div class="font-size14">{{ conf.date.strftime('%B') }}</div> <!-- Mois -->
                                 <div class="font-size14">{{ conf.date.year }}</div> <!-- Année -->
                             </div>
                         </div>

@@ -26,8 +26,8 @@
 
     <div class="row">
       <div class="col">
-        {% if offers: %}
-          {% for offer in offers: %}
+        {% if offres : %}
+          {% for offer in offres: %}
             <div class="card p-3 mb-2">
               <div class="d-flex flex-row align-items-center">
                 <div class="icon"> <i class="fa fa-ad"></i> </div>
@@ -35,7 +35,7 @@
                   <h6 class="mb-0">{{ offer.type }}</h6>
                 </div>
               </div>
-              <img src="{{ url_for('static', filename=offer.imagePath) }}" style="height: 200px;">
+              <img src="{{offer.imagePath}}" style="height: 200px;">
               <div class="d-flex justify-content-between">
               </div>
               <div class="mt-1">
@@ -46,8 +46,8 @@
                 </div>
               </div>
               <div class="mt-1">
-                <a href="{{ url_for('emploi', offer_id=offer.id) }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;border-radius: 50px;">
-                  En savoir plus <img src="{{ url_for('static', filename='assets/images/Arrow 1.png') }}" alt="" class="ml-2" style="width: 20px;">
+                <a href="{{ url_for('emploi', id=offer.id) }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;border-radius: 50px;">
+                  En savoir plus <img src="{{ url_for('static', filename='assets/images/Arrow 1.png') }}" alt="" class="ml-2" style="width: 20px;scale: 0.6;">
                 </a>
               </div>
             </div>

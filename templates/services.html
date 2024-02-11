@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<head>
+    <title>LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  {% with currentPage='' %}
+  {% include 'navbar.html' %}
+{% endwith %}
+    <div class="container" >
+        <div class="row mt-5">
+          <div class="container">
+          <h1 class="text-[blue] font-bold display-2 text-[40px]">SERVICES</h1>
+          <hr class="border-2 border-primary mt-4" />
+        </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <p class="text-black font-medium" style="font-size: 20px;">
+              LMS invention is involved in all areas such as industry 4.0, digitalization, connected objects, artificial intelligence, energy, automation of your processes, mechanics, electromechanics... With LMS invention, let's change the future.
+            </p>
+            <div class="mt-4">
+              <button class="btn btn" style="background-color: rgb(0, 0, 255);color: white;">
+                En savoir plus
+              </button>
+            </div>
+          </div>
+          <div class="col-md-10 mt-4  ml-12" style=" scale: 1;padding: 20px;border-radius: 10px;">
+            <div class="row">
+              <!-- Première carte -->
+              <div class="col-sm-4 mb-4">
+                <div class="card d-flex flex-column h-100">
+                  <img src="../static/assets/images/process.png" class="card-img-top" alt="Process" style="height: 200px;"/>
+                  <div class="card-body">
+                    <h5 class="card-title text-primary font-semibold">
+                      Process
+                    </h5>
+                    <p class="card-text text-primary">
+                      Comprendre qui vous êtes, ce que vous faites et à qui vous vous adressez pour mieux vous accompagner dans vos projets.
+                    </p>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Deuxième carte -->
+              <div class="col-sm-4 mb-4">
+                <div class="card d-flex flex-column h-100">
+                  <img src="../static/assets/images/automation.png" class="card-img-top" alt="Automatisation" style="height: 200px;"/>
+                  <div class="card-body">
+                    <h5 class="card-title text-primary font-semibold">
+                      Automatisation
+                    </h5>
+                    <p class="card-text text-primary">
+                      Accélérez le développement de vos projets digitaux et transformez votre idée en une solution digitale fonctionnelle, évolutive et fiable.
+                    </p>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Troisième carte -->
+              <div class="col-sm-4 mb-4">
+                <div class="card d-flex flex-column h-100">
+                  <img src="../static/assets/images/energy.jpg" class="card-img-top" alt="Energie" style="height: 200px;" />
+                  <div class="card-body">
+                    <h5 class="card-title text-dark font-semibold">
+                      Energie
+                    </h5>
+                    <p class="card-text text-primary">
+                      Vous accompagner pour piloter l'activité de votre entreprise en améliorant la performance de votre système d'information.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Quatrième carte -->
+            <div class="row">
+              <div class="col-sm-4 mb-4">
+                <div class="card d-flex flex-column h-100">
+                  <img src="../assets/images/industry4.png" class="card-img-top" alt="Industrie 4.0" style="height: 200px;" />
+                  <div class="card-body">
+                    <h5 class="card-title text-dark font-semibold">
+                      Industrie 4.0
+                    </h5>
+                    <p class="card-text text-primary">
+                      L'industrie 4.0 révolutionne la façon dont les entreprises fabriquent, améliorent et distribuent leurs produits. Les fabricants intègrent de nouvelles technologies, notamment l'Internet des objets (IoT), le cloud computing et l'analytique, ainsi que l'IA et l'apprentissage automatique dans leurs installations de production et dans l'ensemble de leurs opérations.
+                    </p>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Cinquième carte -->
+              <div class="col-sm-4 mb-4">
+                <div class="card d-flex flex-column h-100">
+                  <img src="../static/assets/images/ai.png" class="card-img-top" alt="Intelligence artificielle" style="height: 200px;" />
+                  <div class="card-body">
+                    <h5 class="card-title text-dark font-semibold">
+                      Intelligence artificielle
+                    </h5>
+                    <p class="card-text text-primary">
+                      L’IA est en réalité une discipline jeune d’une soixantaine d’années, qui réunit des sciences, théories et techniques (notamment logique mathématique, statistiques, probabilités, neurobiologie computationnelle et informatique) et dont le but est de parvenir à faire imiter par une machine les capacités cognitives d’un être humain.
+                    </p>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Sixième carte -->
+              <div class="col-sm-4 mb-4">
+                <div class="card d-flex flex-column h-100">
+                  <img src="../static/assets/images/realiteaug.png" class="card-img-top" alt="Réalité augmentée" style="height: 200px;"/>
+                  <div class="card-body">
+                    <h5 class="card-title text-dark font-semibold">
+                      Réalité augmentée
+                    </h5>
+                    <p class="card-text text-primary">
+                      La réalité augmentée (ou RA) est une technologie qui permet d’intégrer des éléments virtuels en 3D (en temps réel) au sein d’un environnement réel. Le principe est de combiner le virtuel et le réel et donner l’illusion d’une intégration parfaite à l’utilisateur.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include 'footer.html' %}
+</body>

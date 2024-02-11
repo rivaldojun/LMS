@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Postulant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ajoutez votre propre CSS personnalisé ici */
+
+        /* Style pour le titre */
+        h2 {
+            color: #007bff; /* Bleu Bootstrap par défaut */
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Style pour la carte */
+        .card {
+            border: 1px solid rgba(0, 0, 0, 0.125); /* Bordure légère */
+            border-radius: 10px; /* Coins arrondis */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+        }
+
+        /* Style pour le bouton de téléchargement */
+        .btn-download {
+            background-color: #28a745; /* Vert Bootstrap */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-download:hover {
+            background-color: #218838; /* Vert légèrement plus foncé au survol */
+        }
+    </style>
+</head>
+<body>
+    {% with currentPage='blog' %}
+    {% include 'navbar_admin.html' %}
+    {% endwith %}
+    <div class="container mt-5">
+        <h2>Détails du Postulant</h2>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ postulant.name }}</h5>
+                <p class="card-text"><strong>Email:</strong> {{ postulant.email }}</p>
+                <p class="card-text"><strong>Message:</strong> {{ postulant.message }}</p>
+                <p class="card-text"><strong>CV:</strong> <a href="../{{ postulant.cv }}" class="btn-download" download>{{ postulant.cv }}</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

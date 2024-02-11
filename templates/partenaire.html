@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+    <title>LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    {% with currentPage='' %}
+    {% include 'navbar.html' %}
+{% endwith %}
+    <div class="bg-white w-full ">
+        <div class="w-2/4 mb-4">
+            <div class="text-center mt-8">
+                <h2 class="font-extrabold relative mb-4" style="font-size: 28px; color: blue;">Partenaires</h2>
+                <div class="w-16 h-1 bg-blue-900 mx-auto" style="background-color: blue;"></div>
+            </div>
+        </div>
+       <div class="grid sm:grid-cols-2 mt-5 ">
+           <div class="ml-20 bg-white sm:w-[420px] w-[260px] h-[230px] ml-[20px] sm:h-[480px] sm:ml-[127px]   hover:scale-105 transition-transform   ">
+               <img src="../static/assets/giz.png" alt="" class="sm:mt-[180px] mt-[100px] sm:ml-[209px]" style="scale: 1.4;">
+           </div>
+           <div class="bg-white sm:ml-[-20px] ml-1">
+               <p class="text-[#315BA6] sm:text-[22px] ">
+                L’ENSAM de Meknès créée en 1997 sous les Hautes Directives Royales, c’est un établissement public de l’enseignement supérieur et composant de l’Université Moulay Ismail de Meknès, qui forme des ingénieurs d’états arts et métiers polyvalents pour répondre à la demande croissante du marché d’emploi.
+               </p>
+               <button
+                   class="flex float-end mb-4">
+                   <a href="http://www.ensam-umi.ac.ma/ " class="btn btn-primary">En
+                       savoir plus</a>
+                   <img src="../static/assets/Arrow.png" alt="" class="sm:w-[36px] w-[25px] my-auto">
+               </button>
+           </div>
+       </div>
+       <div class="grid sm:grid-cols-2 sm:mt-[50px]">
+
+           <div class="bg-white sm:ml-[30px]">
+               <p class="text-[#315BA6] ">
+                Explorer Innovation Fund is a program (in collaboration with MIT Sandbox Innovation Fund) that provides a personalized educational and business experience for innovators and entrepreneurs from the UM6P, GEP, MASCIR, 1337, YouCode, Cadi Ayyad, Hassan II, Mohammed V, and Al Akhawayn community (students, researchers, and postdocs) sowing the seeds for a real venture.
+               </p>
+               <button
+                   class="flex mb-4 ">
+                   <a href="https://explorer.um6pventures.com/ " class="btn btn-primary ">En
+                       savoir plus</a>
+                   <img src="../static/assets/Arrow.png" alt="" class="sm:w-[36px] w-[25px] my-auto">
+               </button>
+           </div>
+           <div class="bg-white sm:mt-0 mt-[10px] w-[260px] h-[230px] ml-[20px] sm:w-[400px] sm:h-[480px] sm:ml-[70px] shadow-xl hover:scale-105 transition-transform   ">
+               <img src="../static/assets/pulse.png" alt="" class="sm:mt-[160px] mt-[70px] sm:ml-[0px]">
+           </div>
+       </div>
+       
+</div>
+{% include 'footer.html' %}
+</body>

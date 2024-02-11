@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <title>LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+   {% with currentPage='' %}
+    {% include 'navbar.html' %}
+{% endwith %}
+<section id="confident" class="section py-5 bg-white">
+    <div class="container">
+    <h1 style="text-align: center;font-weight: bold;">Politique de Confidentialité</h1><br><br>
+    <div class="row-cols-1">
+    <h2>Notre Engagement en Matière de Protection des Données</h2><br>
+    <p>Chez LMS INVENTION, nous attachons une grande importance à la protection de la vie privée de nos visiteurs et de nos clients. Cette Politique de Confidentialité vise à vous informer sur la manière dont nous collectons, utilisons et protégeons vos données personnelles.</p>
+
+    <h2>Les Informations que Nous Collectons</h2><br>
+
+    <p>Nous collectons les types de données personnelles suivants :</p>
+    <ul>
+        <li>Nom</li>
+        <li>Adresse e-mail</li>
+    </ul>
+
+    <h2>Comment Nous Utilisons Vos Données</h2><br>
+    <p>Nous utilisons vos données personnelles pour les finalités suivantes :</p>
+
+    <ul>
+        <li>Fournir, maintenir et améliorer notre site web.</li>
+        <li>Vous contacter pour répondre à vos demandes de renseignements ou de support.</li>
+        <li>Vous envoyer des informations sur nos formations, conferences,offres et activités (si vous avez donné votre consentement).</li>
+    </ul>
+
+    <h2>Partage des Données Personnelles</h2><br>
+    <p>Nous ne vendons, ne louons ni ne partageons vos données personnelles avec des tiers, sauf dans les cas où cela est nécessaire pour fournir nos services ou lorsque la loi l'exige. Lorsque nous partageons des données, nous veillons à ce que les tiers respectent des normes de confidentialité équivalentes.</p>
+
+    <h2>Sécurité des Données</h2><br>
+    <p>Nous mettons en place des mesures de sécurité pour protéger vos données personnelles contre la perte, le vol, l'accès non autorisé, la divulgation, la copie, la modification ou l'utilisation. Nous nous conformons aux réglementations de protection des données en vigueur pour garantir la sécurité de vos informations.</p>
+
+    <h2>Vos Droits et Options</h2><br>
+    <p>Vous avez le droit d'accéder à vos données personnelles, de les rectifier, de les supprimer, de limiter leur traitement, de vous opposer au traitement, et de demander la portabilité de vos données. Vous pouvez exercer ces droits en nous contactant à <a href="mailto:info@lms-invention.com">info@lms-invention.com</a>.</p>
+
+    <h2>Mises à Jour de la Politique de Confidentialité</h2><br>
+    <p>Nous pouvons mettre à jour cette Politique de Confidentialité de temps à autre pour refléter les changements dans nos pratiques de collecte et d'utilisation des données. Les mises à jour seront publiées sur cette page.</p>
+</div>
+</div>
+</section>
+{% include 'footer.html' %}
+</body>
