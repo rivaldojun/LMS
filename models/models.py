@@ -56,18 +56,12 @@ class Conference(db.Model):
     lieu = db.Column(db.String, default="")
     date = db.Column(db.DateTime, default=datetime.now)
 
-# class Participationmeet(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     id_meet=db.Column(db.Integer, db.ForeignKey('conference.id'))
-#     mail = db.Column(db.String)
-#     date = db.Column(db.DateTime)
-#     # content_formations = db.relationship('ContentFormation', backref='theme')
 
 class ThemeFormation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titre = db.Column(db.String)
     description = db.Column(db.String)
-    # content_formations = db.relationship('ContentFormation', backref='theme')
+
 
 
 class ContentFormation(db.Model):
@@ -75,9 +69,8 @@ class ContentFormation(db.Model):
     titre = db.Column(db.String)
     description = db.Column(db.String)
     path = db.Column(db.String)
-    theme_id = db.Column(db.Integer, db.ForeignKey('theme_formation.id'))  # Renommer la colonne de clé étrangère
-    # theme = db.relationship('ThemeFormation', backref='content_formations')
-    # commentaires = db.relationship('CommentaireFormation', backref='formation')
+    theme_id = db.Column(db.Integer, db.ForeignKey('theme_formation.id')) 
+
 
 class CommentaireFormation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
