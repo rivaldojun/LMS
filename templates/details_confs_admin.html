@@ -11,10 +11,10 @@
 </head>
 
 <body>
-  {% with currentPage='academy' %}
-  {% include 'navbar.html' %}
+  {% with currentPage='' %}
+  {% include 'navbar_admins.html' %}
 {% endwith %}
-<section id="event" class="section" style="background-image:url('../static/assets/images/flou.jfif');height: fit-content;background-position: center;">
+<section id="event" class="section" style="background-image:url('../static/assets/images/flou.jfif');height: 500px;background-position: center;">
   <div class="container ">
     <div class="row ">
       <div class="col-md-3 col-sm-6 col-xs-12 mt-5">
@@ -59,7 +59,7 @@
           </div>
           <div class="desc left">
             <h4>Nombre de personne invitées</h4>
-            <p style="color: white;">-</p>
+            <p style="color: white;">{{nb}}</p>
           </div>
         </div>
       </div>
@@ -71,9 +71,6 @@
       </div>
     </div>
   </div>
-  <div class="justify-content-center flex">
-  <a href="" data-toggle="modal" data-target="#my-modal" class="btn btn center justify-center bg-blue-400 mb-3" style="color: white;background-color: #007bb6;border-radius: 50px;" >Participer</a>
-</div>
 </section>
 
 <div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="height: fit-content">

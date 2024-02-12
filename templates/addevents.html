@@ -30,8 +30,17 @@
               <textarea class="form-control" id="contenu" name="contenu" rows="6" required></textarea>
           </div>
           <div class="form-group">
+            <label for="annonce-type">Type de la conference :</label>
+            <select id="annonce-type" name="conf-type" class="custom-select" required>
+                <option selected disabled>Sélectionnez le type de la conference</option>
+                <option value="online">En ligne</option>
+                <option value="presentiel">En presentiel</option>
+                <option value="hybrid">Hybrid</option>
+            </select>
+        </div>
+          <div class="form-group">
             <label for="titre">Nom du Conferencier :</label>
-            <input type="text" class="form-control" id="Conferencier" name="Conferencier" >
+            <input type="text" class="form-control" id="Conferencier" name="conferencier" >
         </div>
           <div class="form-group">
             <label for="lien">Lien de l'évènement :</label>
