@@ -11,11 +11,12 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
+
 # Charger les variables d'environnement du fichier .env
 load_dotenv()
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates",static_folder="../static")
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 
 app.secret_key = '123'
