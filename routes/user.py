@@ -18,6 +18,27 @@ from dotenv import load_dotenv
 # Charger les variables d'environnement du fichier .env
 load_dotenv()
 
+def send_email(sender_email, recipient_email, subject, body):
+    msg = MIMEMultipart()
+    msg['Subject'] = subject
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    html_content = MIMEText(body, 'html')
+    msg.attach(html_content)
+    smtp_host = os.getenv("SMTP_HOST")
+    smtp_port = int(os.getenv("SMTP_PORT"))
+    smtp_user = os.getenv("SMTP_USER")
+    smtp_password = os.getenv("SMTP_PASSWORD")
+    # Configuration et envoi de l'e-mail
+    try:
+        with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+            server.login(smtp_user, smtp_password)
+            server.send_message(msg)
+        return True
+    except Exception as e:
+        return False
+
+
 
 @app.route('/souscription_conf/<int:id>', methods=['POST','GET'])
 def souscription_conf(id):
@@ -162,7 +183,7 @@ def souscription_conf(id):
         </body>
         </html>
         '''
-
+            sender_email='info@lms-invention.com'
             send_email(sender_email, userEmail,'LMS-Invention/Event', body)
 
             return render_template('confirmation_postul.html', message='Nous vous enverrons le lien de la conférence très prochainement', title='Vous êtes désormais parmi les participants de cette conférence',image='../static/assets/newsletter.jfif')

@@ -10,16 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body style="overflow-x: hidden;">
-    {% if currentPage='academy' %}
+    
         {% with currentPage='academy' %}
         {% include 'navbar.html' %}
         {% endwith %}
-    {% endif %}
-    {% if currentPage='' %}
-        {% with currentPage='academy' %}
-        {% include 'navbar.html' %}
-        {% endwith %}
-    {% endif %}
+
+
     <div class="container-fluid" style="background-color: white;">
         <div class="single_product">
             <div class="container-fluid" style=" background-color: #fff; padding: 11px;">

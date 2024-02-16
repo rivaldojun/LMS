@@ -10,12 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-white w-full" style="margin-bottom: 50px;">
 
     {% with currentPage='' %}
     {% include 'navbar.html' %}
 {% endwith %}
-    <div class="bg-white w-full ">
+    <div class="bg-white w-full " style="margin-bottom: 100px;">
         <div class="w-2/4 mb-4">
             <div class="text-center mt-8">
                 <h2 class="font-extrabold relative mb-4" style="font-size: 28px; color: blue;">Partenaires</h2>
@@ -27,12 +27,12 @@
                <img src="../static/assets/giz.png" alt="" class="sm:mt-[180px] mt-[100px] sm:ml-[209px]" style="scale: 1.4;">
            </div>
            <div class="bg-white sm:ml-[-20px] ml-1">
-               <p class="text-[#315BA6] sm:text-[22px] ">
+               <p class="text-[#315BA6] sm:text-[22px] " style="margin-top: 30px;">
                 L’ENSAM de Meknès créée en 1997 sous les Hautes Directives Royales, c’est un établissement public de l’enseignement supérieur et composant de l’Université Moulay Ismail de Meknès, qui forme des ingénieurs d’états arts et métiers polyvalents pour répondre à la demande croissante du marché d’emploi.
                </p>
                <button
-                   class="flex float-end mb-4">
-                   <a href="http://www.ensam-umi.ac.ma/ " class="btn btn-primary">En
+                   class="flex float-end mb-4" style="color: white;">
+                   <a href="http://www.ensam-umi.ac.ma/ " class="btn" style="background-color: blue;color: white;">En
                        savoir plus</a>
                    <img src="../static/assets/Arrow.png" alt="" class="sm:w-[36px] w-[25px] my-auto">
                </button>
@@ -45,8 +45,8 @@
                 Explorer Innovation Fund is a program (in collaboration with MIT Sandbox Innovation Fund) that provides a personalized educational and business experience for innovators and entrepreneurs from the UM6P, GEP, MASCIR, 1337, YouCode, Cadi Ayyad, Hassan II, Mohammed V, and Al Akhawayn community (students, researchers, and postdocs) sowing the seeds for a real venture.
                </p>
                <button
-                   class="flex mb-4 ">
-                   <a href="https://explorer.um6pventures.com/ " class="btn btn-primary ">En
+                   class="flex mb-4 " style="color: white;">
+                   <a href="https://explorer.um6pventures.com/ " class="btn" style="background-color: blue;color: white;">En
                        savoir plus</a>
                    <img src="../static/assets/Arrow.png" alt="" class="sm:w-[36px] w-[25px] my-auto">
                </button>
@@ -57,5 +57,5 @@
        </div>
        
 </div>
-{% include 'footer.html' %}
 </body>
+{% include 'footer.html' %}
