@@ -6,3 +6,4 @@ APScheduler
 python-dotenv
 Flask-Migrate
 gunicorn
+pymysql

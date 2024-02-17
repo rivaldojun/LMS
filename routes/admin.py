@@ -286,42 +286,42 @@ def admin_page():
     if 'isLoggedIn' in session and session['isLoggedIn']:
         return render_template('pageadmin.html')
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addblog', methods=['GET'])
 def add_blog():
     if 'isLoggedIn' in session and session['isLoggedIn']:
         return render_template('addblog.html')
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addformation', methods=['GET'])
 def add_formation():
     if 'isLoggedIn' in session and session['isLoggedIn']:
         return render_template('addformation.html')
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addevents', methods=['GET'])
 def add_events():
     if 'isLoggedIn' in session and session['isLoggedIn']:
         return render_template('addevents.html')
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addoffer', methods=['GET'])
 def add_offer():
     if 'isLoggedIn' in session and session['isLoggedIn']:
         return render_template('addoffer.html')
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addprojet', methods=['GET'])
 def add_projet():
     if 'isLoggedIn' in session and session['isLoggedIn']:
         return render_template('addprojet.html')
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addblogadmin', methods=['GET'])
 def add_blog_admin():
@@ -329,7 +329,7 @@ def add_blog_admin():
         blogs = Blog.query.order_by(Blog.id.desc()).all()
         return render_template('actualitesadmin.html', blogs=blogs)
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addformationsadmin', methods=['GET'])
 def add_formations_admin():
@@ -337,7 +337,7 @@ def add_formations_admin():
         formations = ThemeFormation.query.order_by(ThemeFormation.id.desc()).all()
         return render_template('formationsadmin.html', formations=formations)
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addformationadmin/<int:id>', methods=['GET'])
 def add_formation_admin(id):
@@ -346,7 +346,7 @@ def add_formation_admin(id):
         formation = ThemeFormation.query.filter_by(id=id).first()
         return render_template('formationadmin.html', formations=formations, idform=id,formation=formation)
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addeventsadmin', methods=['GET'])
 def add_events_admin():
@@ -354,7 +354,7 @@ def add_events_admin():
         confs = Conference.query.order_by(Conference.id.desc()).all()
         return render_template('conferencesadmin.html', confs=confs)
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
     
 
 # Routes
@@ -364,7 +364,7 @@ def add_offer_admin_emploi():
         offers = Offre.query.filter_by(type='emploi').all()
         return render_template('emploisadmin.html', offers=offers)
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addofferadminstage', methods=['GET'])
 def add_offer_admin_stage():
@@ -372,7 +372,7 @@ def add_offer_admin_stage():
         offers = Offre.query.filter_by(type='stage').all()
         return render_template('emploisadmin.html', offers=offers)
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/addprojetadmin', methods=['GET'])
 def add_projet_admin():
@@ -380,41 +380,39 @@ def add_projet_admin():
         projects = Projet.query.order_by(Projet.id.desc()).all()
         return render_template('projetadmin.html', projects=projects)
     else:
-        return 'Impossible'
+        return redirect(url_for('login'))
 
 @app.route('/regist', methods=['GET'])
 def regist():
     return render_template('regist.html', errorMessage='')
 
-@app.route('/register', methods=['POST','GET'])
-def register():
-    if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        func = request.form['function']
-        password = request.form['password']
-        confpassword = request.form['confpassword']
-        hashed_password = generate_password_hash(password)
+# @app.route('/register', methods=['POST','GET'])
+# def register():
+#     if request.method == 'POST':
+#         name = request.form['name']
+#         email = request.form['email']
+#         func = request.form['function']
+#         password = request.form['password']
+#         confpassword = request.form['confpassword']
+#         hashed_password = generate_password_hash(password)
 
-        if password == confpassword:
-            registration = Registration(name=name, email=email, func=func, password=hashed_password)
-            db.session.add(registration)
-            db.session.commit()
-            return redirect('/log')
-        else:
-            return render_template('regist.html', errorMessage='Mot de passe non correspondant')
-    else:
-        # Gérer le cas où la méthode est GET (chargement initial de la page)
-        return render_template('regist.html')
+#         if password == confpassword:
+#             registration = Registration(name=name, email=email, func=func, password=hashed_password)
+#             db.session.add(registration)
+#             db.session.commit()
+#             return redirect('/log')
+#         else:
+#             return render_template('regist.html', errorMessage='Mot de passe non correspondant')
+#     else:
+#         # Gérer le cas où la méthode est GET (chargement initial de la page)
+#         return render_template('regist.html')
 
 
 @app.route('/login', methods=['POST'])
 def login():
     email = request.form['email']
     password = request.form['password']
-
     user = Registration.query.filter_by(email=email).first()
-
     if email=='a@gmail.com' and password=='qwerty12':
         session['isLoggedIn'] = True
         return redirect('/adminpage')
@@ -618,7 +616,6 @@ def supprimer_contenu_formation(idf, id):
         else:
             return  render_template('confirmation_supp.html',message='Contenu de la formation non trouvé.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')  
     except Exception as error:
-        print('Une erreur s\'est produite lors de la suppression du contenu de la formation :', error)
         return 'Une erreur s\'est produite lors de la suppression du contenu de la formation.', 500
 
 @app.route('/supprimerformations/<int:id>', methods=['GET'])

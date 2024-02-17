@@ -266,7 +266,11 @@ def faq():
 
 @app.route('/log', methods=['GET'])
 def log():
-    return render_template('log.html', errorMessage='')
+    if 'isLoggedIn' in session and session['isLoggedIn']:
+       return redirect(url_for('admin_page'))
+    else:
+       return render_template('log.html', errorMessage='')
+
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -276,8 +280,9 @@ def logout():
 @app.route('/details_blog/<int:id>')
 def details_blog(id):
     blog = Blog.query.get(id)
+    blogs=Blog.query.filter_by().all()
     if blog:
-        return render_template('details_blog.html', blog=blog)
+        return render_template('details_blog.html', blog=blog,blogs=blogs)
     else:
         return 'Article de blog non trouvé'
     

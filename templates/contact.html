@@ -32,35 +32,35 @@
     <div id="form-message-success" class="mb-4">
     Your message was sent, thank you!
     </div>
-    <form method="POST" action="/submit-form" id="contactForm" name="contactForm" class="contactForm" novalidate="novalidate">
+    <form method="POST" action="/submit-form" id="contactForm" name="contactForm" class="contactForm">
     <div class="row">
     <div class="col-md-6">
     <div class="form-group">
     <label class="label" for="name">Nom & Prenom</label>
-    <input type="text" class="form-control" name="name" id="name" placeholder="Nom & Prenom" style="color: #007bff;border-radius: 5px;">
+    <input type="text" class="form-control" name="name" id="name" placeholder="Nom & Prenom" style="color: #007bff;border-radius: 5px;" required>
     </div>
     </div>
     <div class="col-md-6">
     <div class="form-group">
     <label class="label" for="email">Adresse E-mail</label>
-    <input type="email" class="form-control" name="email" id="email" placeholder="Email" style="color: #007bff;border-radius: 5px;">
+    <input type="email" class="form-control" name="email" id="email" placeholder="Email" style="color: #007bff;border-radius: 5px;" required>
     </div>
     </div>
     <div class="col-md-12">
     <div class="form-group">
     <label class="label" for="subject">Sujet</label>
-    <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" style="color: #007bff;border-radius: 5px;">
+    <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" style="color: #007bff;border-radius: 5px;" required>
     </div>
     </div>
     <div class="col-md-12">
     <div class="form-group">
     <label class="label" for="#">Message</label>
-    <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"style="color: #007bff;border-radius: 5px;resize:none" ></textarea>
+    <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"style="color: #007bff;border-radius: 5px;resize:none" required></textarea>
     </div>
     </div>
     <div class="col-md-12">
     <div class="form-group">
-    <input type="submit" value="Envoyer" class="btn btn" style="background-color: blue;color: white;">
+    <input type="submit" value="Envoyer" class="btn btn" style="background-color: blue;color: white;" required>
     <div class="submitting"></div>
     </div>
     </div>
