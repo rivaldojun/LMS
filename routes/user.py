@@ -433,7 +433,7 @@ def postul(id):
 
 @app.route('/postulation_offre/<int:id>', methods=['GET'])
 def postulation_offre(id):
-    offre = Offre.query.filter_by(id-id).first()
+    offre = Offre.query.filter_by(id=id).first()
     return render_template('confirmation_postul.html', message="Félicitations ! Votre candidature pour l'offre d'emploi {offre.fonc} a été soumise avec succès. Nous vous remercions pour l'intérêt que vous portez à notre entreprise.Nous reviendrons vers vous dès que possible.", title='Merci pour votre candidature !',image='../static/assets/newsletter.jfif')
 
 
@@ -447,7 +447,7 @@ def voir_formation(idf, id):
             print(formations)
             return render_template('formationview.html', form=form, formations=formations, idf=idf, commentaires=commentaires)
         else:
-            return render_template('pas_element.html')
+            return render_template('pas_element.html',idf=idf)
     except Exception as error:
         print('Erreur lors de la récupération de la formation :', error)
         return jsonify(message='Une erreur s\'est produite lors de la récupération de la formation'), 500

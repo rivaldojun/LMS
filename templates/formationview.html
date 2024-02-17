@@ -107,7 +107,6 @@
         var currentId = {{ form.id }};
         // Calculer l'ID précédent
         var previousId = currentId - 1;
-        alert(previousId);
         if ({{ form.theme_id }} == {{ idf }}) {
             // Rediriger l'utilisateur vers la page précédente
             window.location.href = "/formationview/{{ form.theme_id }}/" + previousId;
