@@ -211,7 +211,7 @@ def auto_reply_message(message_id):
             <br>
             <p>Petite astuce, vérifiez vos courriers indésirables et vos spams, nos réponses peuvent s’y glisser.</p><br>
             <p>Pour être plus efficace, nous vous demandons de ne pas multiplier vos demandes : tickets multipliés = temps de traitement allongé. En effet, chaque demande équivaut à un ticket ouvert pour notre service clientèle par ordre d'ancienneté. Si celles-ci sont multipliées, cela aura pour conséquence d'allonger le temps de réponse.</p><br>
-            <p>En attendant, permettez-nous de partager avec vous notre <a href="/faq" style="color: #0066cc; text-decoration: underline;">FAQ</a>. Vous y trouverez peut-être des réponses à votre question.</p>
+            <p>En attendant, permettez-nous de partager avec vous notre <a href="{{ 'faq') }}" style="color: #0066cc; text-decoration: underline;">FAQ</a>. Vous y trouverez peut-être des réponses à votre question.</p>
             <br>
             <p>Nous vous remercions de votre confiance.</p>
             <p>L'équipe LMS-INVENTION</p>
@@ -518,6 +518,15 @@ def enregistrer_commentaire(idf):
     db.session.commit()
     return redirect(url_for('comment',idform=idf))
 
+@app.route('/enregistrer-commentaire-blog/<int:idf>', methods=['POST'])
+def enregistrer_commentaire_blog(idf):
+    contenu = request.form['commentaire']
+    userName = request.form['username']
+    dateCommentaire = datetime.now()
+    nouveau_commentaire = CommentaireBlog(contenu=contenu, auteur=userName, blog_id=idf, date=dateCommentaire)
+    db.session.add(nouveau_commentaire)
+    db.session.commit()
+    return redirect(url_for('comment_blog',idblog=idf))
 
 @app.route('/voir_candidats/<int:postul_id>')
 def voir_candidats(postul_id):

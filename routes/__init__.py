@@ -18,6 +18,7 @@ load_dotenv()
 
 app = Flask(__name__, template_folder="../templates",static_folder="../static")
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 
 app.secret_key = '123'
 db = SQLAlchemy(app)

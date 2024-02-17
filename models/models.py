@@ -24,6 +24,7 @@ class SouscriptionFormation(db.Model):
 class Newsletter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, unique=True)
+    name=db.Column(db.String)
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -78,6 +79,14 @@ class CommentaireFormation(db.Model):
     auteur = db.Column(db.String)
     date = db.Column(db.DateTime)
     formation_id = db.Column(db.Integer, db.ForeignKey('content_formation.id'))
+
+class CommentaireBlog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    contenu = db.Column(db.String)
+    auteur = db.Column(db.String)
+    date = db.Column(db.DateTime)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))
+
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)

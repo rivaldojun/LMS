@@ -219,7 +219,7 @@ def souscription_form(id):
 def newsletter():
     try:
         email = request.form['email']
-
+        name = request.form['name']
         # Vérifie si l'e-mail existe déjà dans la base de données
         existing_subscriber = Newsletter.query.filter_by(email=email).first()
 
@@ -228,12 +228,12 @@ def newsletter():
             return render_template('newsletter_msg.html', message=f'Cet adresse mail {email} est déjà abonné à notre newsletter', title='OOPS...', image='../static/assets/wrong.jfif')
 
         # Si l'abonné n'existe pas, ajouter un nouvel enregistrement
-        new_subscriber = Newsletter(email=email)
+        new_subscriber = Newsletter(email=email,name=name)
         db.session.add(new_subscriber)
         db.session.commit()
 
         # Réponse de succès
-        return render_template('newsletter_msg.html', message='Vous recevrez prochainement le prochain numéro de notre newsletter.', title='Merci de vous être abonné', image='../static/assets/newsletter.jfif')
+        return render_template('newsletter_msg.html', message='Vous recevrez prochainement le prochain numéro de notre newsletter.', title='Nous vous remercions', image='../static/assets/newsletter.jfif')
     except Exception as e:
         print(e)
         return render_template('newsletter_msg.html', message='Erreur lors de l\'abonnement à la newsletter', title='Veuillez réessayer dans un moment', image='../static/assets/wrong.jfif')
@@ -386,6 +386,12 @@ def comment(idform):
     return render_template('commentaire.html', commentaires=commentaires,idform=idform)
 
 
+@app.route('/comment_blog/<int:idblog>')
+def comment_blog(idblog):
+    commentaires = CommentaireBlog.query.filter_by(blog_id=idblog).all()
+    return render_template('commentaire_blog.html', commentaires=commentaires,idblog=idblog)
+
+
 @app.route('/emploi/<int:id>')
 def emploi(id):
     offre = Offre.query.get_or_404(id)
@@ -394,12 +400,12 @@ def emploi(id):
 @app.route('/emplois')
 def emplois():
     offres = Offre.query.filter_by(type='emploi').all()
-    return render_template('emplois.html', offres=offres)
+    return render_template('emplois.html', offres=offres,type="d'emplois")
 
 @app.route('/stage')
 def stage():
     offres = Offre.query.filter_by(type='stage').all()
-    return render_template('emplois.html', offres=offres)
+    return render_template('emplois.html', offres=offres,type="de stage")
 
 @app.route('/postul/<int:id>', methods=['POST'])
 def postul(id):
@@ -418,7 +424,12 @@ def postul(id):
         db.session.add(postul)
         db.session.commit()
 
-    return redirect(url_for('emploi',id=id))
+    return redirect(url_for('postulation_offre',id=id))
+
+@app.route('/postulation_offre/<int:id>', methods=['GET'])
+def postulation_offre(id):
+    offre = Offre.query.filter_by(id-id).first()
+    return render_template('confirmation_postul.html', message="Félicitations ! Votre candidature pour l'offre d'emploi {offre.fonc} a été soumise avec succès. Nous vous remercions pour l'intérêt que vous portez à notre entreprise.Nous reviendrons vers vous dès que possible.", title='Merci pour votre candidature !',image='../static/assets/newsletter.jfif')
 
 
 @app.route('/formationview/<int:idf>/<int:id>', methods=['GET'])

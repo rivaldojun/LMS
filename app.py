@@ -4,8 +4,6 @@ from flask_migrate import Migrate
 
 
 
-
-
 with app.app_context():
         db.create_all()
 #end model
