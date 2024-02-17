@@ -425,7 +425,7 @@ def enregistrer_article():
     titre = request.form['titre']
     contenu = request.form['contenu']
     image = request.files['image']
-    imagePath = os.path.join('static','assets', 'images_1', image.filename)
+    imagePath = os.path.join('static','assets', 'images_1', image.filename + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     image.save(imagePath)
     article = Blog(titre=titre, description=contenu, imagePath=imagePath)
     db.session.add(article)
@@ -442,7 +442,7 @@ def enregistrer_event():
     lieu = request.form['lieu']
     date = datetime.strptime(request.form['date'], '%Y-%m-%dT%H:%M')
     image = request.files['image']
-    imagePath = os.path.join('static','assets', 'images_1', image.filename)
+    imagePath = os.path.join('static','assets', 'images_1', image.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     image.save(imagePath)
     lien = request.form['lien']
     conference = Conference(titre=titre, description=description, lieu=lieu,type=type, date=date, imagePath=imagePath, lien=lien,conferencier=conferencier)
@@ -468,7 +468,7 @@ def enregistrer_offer():
         contenu = request.form['contenu']
         fonc = request.form['fonc']
         image = request.files['image']
-        imagePath = os.path.join('static','assets', 'images_1', image.filename)
+        imagePath = os.path.join('static','assets', 'images_1', image.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
         image.save(imagePath)
         offre = Offre(type=annonce_type, description=contenu, fonc=fonc, imagePath=imagePath)
         db.session.add(offre)
@@ -481,7 +481,7 @@ def enregistrer_projet():
     titre = request.form['titre']
     description = request.form['contenu']
     image = request.files['image']
-    imagePath = os.path.join('static','assets', 'images_1', image.filename)
+    imagePath = os.path.join('static','assets', 'images_1', image.filename + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     image.save(imagePath)
     projet = Projet(titre=titre, description=description, imagePath=imagePath)
     db.session.add(projet)
@@ -546,11 +546,11 @@ def ajouter_formation(id):
         description = request.form['description']
         fichiers = request.files.getlist('fichiers[]')
         for file in fichiers:
-            imagePath=os.path.join('static','assets','images_1', file.filename)
+            imagePath=os.path.join('static','assets','images_1', file.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
             path_abs.append(imagePath)
             file.save(imagePath)
         # Construction des chemins des fichiers
-        path = ','.join([file.filename for file in fichiers])
+        path = ','.join([file.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") for file in fichiers])
         # Enregistrement des données dans la base de données
         nouvelle_formation = ContentFormation(titre=titre, description=description, path=path, theme_id=idform)
         db.session.add(nouvelle_formation)

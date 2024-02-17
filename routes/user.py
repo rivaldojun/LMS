@@ -423,7 +423,7 @@ def postul(id):
         
         # Enregistrement du CV
         if cv:
-            Path = os.path.join('static','assets', 'images_1', cv.filename)
+            Path = os.path.join('static','assets', 'images_1', cv.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
             cv.save(Path)
         postul = Postul(titre=titre, name=name, email=email, message=message, cv=Path,post_id=id)
         db.session.add(postul)
