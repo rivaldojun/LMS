@@ -1,7 +1,6 @@
-from controllers.scheduler import *
-from routes import *
+from Main.controllers.scheduler import *
 from flask_migrate import Migrate
-
+from Main import *
 
 
 with app.app_context():
@@ -11,4 +10,4 @@ with app.app_context():
 
 if __name__ == "__main__":
     schedule_email_reminders()
-    app.run(debug=False)
+    app.run(debug=True)
