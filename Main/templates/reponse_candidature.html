@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #000000;
+        }
+        
+        h1 {
+            color: #3498db;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .thank-you { 
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 16px;
+            text-align: center;
+            color: #0000FF;
+        }
+
+        .footer {
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .icon {
+            margin-right: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>LMS-INVENTION</h1>
+        <div>
+            <p><strong>Bonjour {{ username }},</strong></p>
+            <p>Merci pour avoir postulé à notre offre d'emploi/stage au poste de :{{titre}}. Nous avons bien reçu votre candidature et nous vous en remercions.</p>
+            <p>Notre équipe RH examine actuellement toutes les candidatures reçues. Nous vous recontacterons dans les plus brefs délais pour vous informer de la suite du processus de recrutement.</p>
+            <p>En attendant, si vous avez des questions ou besoin de plus d'informations, n'hésitez pas à nous contacter. Nous sommes là pour vous aider.</p>
+            <p>Merci encore pour votre intérêt pour LMS-INVENTION.</p>
+            <p>Cordialement,</p>
+            <p>L'équipe RH de LMS-INVENTION</p>
+        </div>
+        <div class="thank-you">
+            <p>Merci et à bientôt chez LMS-INVENTION !</p>
+            <div class="embed-responsive embed-responsive-16by9">
+                <img class="card-img-top embed-responsive-item" src="cid:image1" alt="LOGO" >
+            </div>
+        </div>
+        <hr style="border: 2px solid #3498db;">
+        <div class="footer">
+            <p><span class="icon"><i class="fas fa-map-marker"></i></span>Adresse: Meknes, Maroc, CP 50000</p>
+            <p><span class="icon"><i class="fas fa-phone"></i></span>Téléphone: <a href="tel://1234567920">+212 644304209</a></p>
+            <p><span class="icon"><i class="fas fa-envelope"></i></span>Email: <a href="mailto:info@lms-invention.com">info@lms-invention.com</a></p>
+            <p><span class="icon"><i class="fas fa-globe"></i></span>Site web: <a href="{{url_for('homepage')}}">lms-invention</a></p>
+        </div>
+        <br>
+        <br>
+        <div class="container" style="color: rgb(0, 173, 0);">
+            <p style="font-size: 10px;color: rgb(0, 173, 0);">
+                <span><i class="fas fa-plus"></i></span>
+                Pensez à l'environnement ! Nettoyez votre messagerie régulièrement en supprimant les mails traités et les pièces jointes enregistrées !
+            </p>
+        </div>
+    </div>
+</body>
+</html>

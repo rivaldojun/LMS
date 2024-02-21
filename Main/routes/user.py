@@ -8,6 +8,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
+from email.mime.image import MIMEImage
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime, timedelta
 from Main import *
@@ -18,27 +19,6 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 
 # Charger les variables d'environnement du fichier .env
 load_dotenv()
-
-def send_email(sender_email, recipient_email, subject, body):
-    msg = MIMEMultipart()
-    msg['Subject'] = subject
-    msg['From'] = sender_email
-    msg['To'] = recipient_email
-    html_content = MIMEText(body, 'html')
-    msg.attach(html_content)
-    smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT"))
-    smtp_user = os.getenv("SMTP_USER")
-    smtp_password = os.getenv("SMTP_PASSWORD")
-    # Configuration et envoi de l'e-mail
-    try:
-        with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
-            server.login(smtp_user, smtp_password)
-            server.send_message(msg)
-        return True
-    except Exception as e:
-        return False
-
 
 
 @app.route('/souscription_conf/<int:id>', methods=['POST','GET'])
@@ -57,133 +37,10 @@ def souscription_conf(id):
             db.session.commit()
             sender_email='info@lms-invention.com'
             if conference.type == 'online' or conference.type == 'hybrid':
-                body = f'''
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                /* Stylize the email with CSS */
-                body {{
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    margin: 0;
-                    padding: 0;
-                }}
-                
-                .container {{
-                    max-width: 600px;
-                    margin: 20px auto;
-                    padding: 20px;
-                    background-color: #ffffff; /* Lernender blue */
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    color: white;
-                    text-align: center;
-                }}
-                
-                h1 {{
-                    color: #3498db; /* Lernender blue */
-                    font-size: 36px;
-                    margin-bottom: 10px;
-                }}
-                
-                p {{
-                    color: rgb(0, 0, 0);
-                    font-size: 18px;
-                    line-height: 1.6;
-                    text-align: center;
-                }}
-                
-                .code {{
-                    font-size: 42px;
-                    font-weight: bold;
-                }}
-                
-                
-                .thank-you {{ 
-                    margin-top: 30px;
-                    font-style: italic;
-                    font-size: 20px;
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <h1><span >LMS-INVENTION</span></h1>
-                <p>Vous êtes abonné à la conférence '{conference.titre}' qui aura lieu le {conference.date}.</p>
-                <p>Rejoignez la conférence en cliquant sur ce lien: {conference.lien}</p>
-
-                <div class="thank-you">
-                    <p>Merci encore et à bientôt chez <span style="color: blue;" >LMS-INVENTION</span> !</p>
-                </div>
-                <img src="/static/assets/images/lms-logo-removebg-preview.png" style="height: 50px;width: 50px;display:flex;">
-            </div>
-        </body>
-        </html>
-        '''
+                body = render_template("event_non_presentiel.html",userName=userName,conference=conference,entree="qui aura lieu le")
             else:
-                body = f'''
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                /* Stylize the email with CSS */
-                body {{
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    margin: 0;
-                    padding: 0;
-                }}
-                
-                .container {{
-                    max-width: 600px;
-                    margin: 20px auto;
-                    padding: 20px;
-                    background-color: #ffffff; /* Lernender blue */
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    color: white;
-                    text-align: center;
-                }}
-                
-                h1 {{
-                    color: #3498db; /* Lernender blue */
-                    font-size: 36px;
-                    margin-bottom: 10px;
-                }}
-                
-                p {{
-                    color: rgb(0, 0, 0);
-                    font-size: 18px;
-                    line-height: 1.6;
-                    text-align: center;
-                }}
-                
-                .code {{
-                    font-size: 42px;
-                    font-weight: bold;
-                }}
-                
-                
-                .thank-you {{ 
-                    margin-top: 30px;
-                    font-style: italic;
-                    font-size: 20px;
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <h1><span >LMS-INVENTION</span></h1>
-                <p>Vous êtes abonné à la conférence '{conference.titre}' qui aura lieu le {conference.date}.</p>
-                <p>Rejoignez la conférence en suivant ce lien: <a href='{conference.lien}'>Lien du meet</a></p>
-
-                <div class="thank-you">
-                    <p>Merci encore et à bientôt chez <span style="color: blue;" >LMS-INVENTION</span> !</p>
-                </div>
-                <img src="/static/assets/images/lms-logo-removebg-preview.png" style="height: 50px;width: 50px;display:flex;">
-            </div>
-        </body>
-        </html>
-        '''
+                body = render_template("event_presentiel.html",userName=userName,conference=conference,entree="qui aura lieu le")
+        
             sender_email='info@lms-invention.com'
             send_email(sender_email, userEmail,'LMS-Invention/Event', body)
 
@@ -406,8 +263,8 @@ def stage():
     offres =Offre.query.filter_by(type='stage').order_by(Offre.date.desc()).all()
     return render_template('emplois.html', offres=offres,type="de stage")
 
-@app.route('/postul/<int:id>', methods=['POST'])
-def postul(id):
+@app.route('/postul/<int:id>/<type>', methods=['POST'])
+def postul(id,type):
     if request.method == 'POST':
         titre = request.form['titre']
         name = request.form['Name']
@@ -422,8 +279,17 @@ def postul(id):
             cv.save(Path)
             Path=os.path.join("static","assets/images_1",filename)
         postul = Postul(titre=titre, name=name, email=email, message=message, cv=Path,post_id=id)
-        db.session.add(postul)
-        db.session.commit()
+        exist=Postul.query.filter_by(post_id=id,email=email).first()
+        if not exist:
+            db.session.add(postul)
+            # Récupérer la réponse du formulaire
+            subject = 'Votre Candidature a LMS-INVENTION'
+            body =render_template('reponse_candidature.html',username=name,titre=titre)
+            sender_email =  'info@lms-invention.com'
+            send_email(sender_email,email, subject, body)
+            db.session.commit()
+        else:
+            return render_template('confirmation_postul.html', message='Nous examinons votre candidature.Nous reviendrons vers vous très prochainement', title='Vous avez deja postule a cette offre',image='/static/assets/newsletter.jfif')
 
     return redirect(url_for('postulation_offre',id=id))
 

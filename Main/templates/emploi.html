@@ -12,11 +12,19 @@
 
 <body>
 
-{% with currentPage='' %}
+{% with currentPage='carriere' %}
   {% include 'navbar.html' %}
 {% endwith %}
- 
+
   <div class="blog-single gray-bg">
+    <div class="ml-5 mt-5">
+      <div class="ml-5 mt-5 animate-element" data-animation="fadeInUp" style="animation-duration: 0.6s;">
+          <p class="text-4xl font-bold " style="color: rgb(75, 75, 255);">
+            {{offre.type}}
+          </p>
+          <hr class="border-b-2 border-blue-500 w-2/3 mt-3">
+        </div>
+    </div>
       <div class="container">
           <div class="row align-items-start">
               <div class="col-lg-8 m-15px-tb">
@@ -39,7 +47,7 @@
                   </article>
                   <div class="contact-form article-comment">
                       <h4>Postuler Ici</h4>
-                      <form id="contact-form" method="POST" action="/postul/{{offre.id}}" enctype="multipart/form-data">
+                      <form id="contact-form" method="POST" action="/postul/{{offre.id}}/{{offre.type}}" enctype="multipart/form-data">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
 
                           <div class="row">

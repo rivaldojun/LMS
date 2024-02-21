@@ -30,7 +30,21 @@
                   </div>
                   <div class="col-md-6 col-lg-7 d-flex align-items-center">
                     <div class="card-body p-4 p-lg-5 text-black">
-      
+                    {% if errorMessage %}
+                      <div id="alertDiv" class="alert alert-danger alert-dismissible text-center">
+                        {{ errorMessage }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                    <script>
+                        // Fonction pour fermer l'alerte après 5 secondes
+                        setTimeout(function() {
+                            document.getElementById('alertDiv').style.display = 'none';
+                        }, 5000); // 5000 millisecondes = 5 secondes
+                    </script>
+                    
                     <form method="POST" action="/login">
                       <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
                         <div class="d-flex align-items-center mb-3 pb-1">

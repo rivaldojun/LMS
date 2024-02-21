@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff; /* Lernender blue */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        
+        h1 {
+            color: #3498db; /* Lernender blue */
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            color: rgb(0, 0, 0);
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: start;
+        }
+        
+        .thank-you { 
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 20px;
+        }
+        .text{
+            font-size: 10px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1><span >LMS-INVENTION</span></h1>
+        <br>
+        <div style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6;">
+            <p style="font-weight: bold;">Bonjour {{message.name}}</p>
+            <p>Nous vous remercions de votre prise de contact et accusons réception de votre demande .</p>
+            <p>Notre délai de réponse actuel est en moyenne de 2 à 5 heures. Nous faisons le nécessaire pour vous apporter une solution le plus rapidement possible.</p>
+            <p>Petite astuce, vérifiez vos courriers indésirables et vos spams, nos réponses peuvent s’y glisser.</p>
+            <p>Pour être plus efficace, nous vous demandons de ne pas multiplier vos demandes : tickets multipliés = temps de traitement allongé. En effet, chaque demande équivaut à un ticket ouvert pour notre service clientèle par ordre d'ancienneté. Si celles-ci sont multipliées, cela aura pour conséquence d'allonger le temps de réponse.</p>
+            <p>En attendant, permettez-nous de partager avec vous notre <a href="{{ url_for('faq', _external=True) }}" style="color: #0066cc; text-decoration: underline;">FAQ</a>. Vous y trouverez peut-être des réponses à votre question.</p>
+            <p>Nous vous remercions de votre confiance.</p>
+            <p>L'équipe LMS-INVENTION</p>
+        </div>
+        <div class="thank-you">
+            <p>Merci encore et à bientôt chez <br><span style="color: blue;" >LMS-INVENTION</span> !</p>
+            <div class="embed-responsive embed-responsive-16by9">
+                <img class="card-img-top embed-responsive-item" src="cid:image1" alt="LOGO" >
+            </div>
+        </div>
+        <hr style="border: 2px solid #3498db;">
+        <p style="font-size: 10px;">Adresse: Meknes, Maroc, CP 50000</p>
+        <p style="font-size: 10px;">Téléphone: <a href="tel://1234567920">+212 644304209</a></p>
+        <p style="font-size: 10px;">Email: <a href="mailto:info@lms-invention.com">info@lms-invention.com</a></p>
+        <p style="font-size: 10px;">Site web: <a href="{{url_for('homepage')}}">lms-invention</a></p>
+        <br>
+        <br>
+        <div class="container" style="color: rgb(0, 173, 0);">
+            <p style="font-size: 10px;color: rgb(0, 173, 0);">
+                <span><i class="fas fa-plus"></i></span>
+                Pensez à l'environnement ! Nettoyez votre messagerie régulièrement en supprimant les mails traités et les pièces jointes enregistrées !
+            </p>
+        </div>
+    </div>
+</body>
+</html>

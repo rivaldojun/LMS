@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import smtplib
 from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -19,25 +20,6 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 # Charger les variables d'environnement du fichier .env
 load_dotenv()
 
-def send_email(sender_email, recipient_email, subject, body):
-    msg = MIMEMultipart()
-    msg['Subject'] = subject
-    msg['From'] = sender_email
-    msg['To'] = recipient_email
-    html_content = MIMEText(body, 'html')
-    msg.attach(html_content)
-    smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT"))
-    smtp_user = os.getenv("SMTP_USER")
-    smtp_password = os.getenv("SMTP_PASSWORD")
-    # Configuration et envoi de l'e-mail
-    try:
-        with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
-            server.login(smtp_user, smtp_password)
-            server.send_message(msg)
-        return True
-    except Exception as e:
-        return False
 
 
 @app.route('/messages')
@@ -71,73 +53,12 @@ def reply_message(message_id):
     # Code pour récupérer le message avec l'ID donné de la base de données
     # Remplacer cette ligne par votre propre code pour récupérer le message
     message = Message.query.get_or_404(message_id)
+    print(message.email)
     if request.method == 'POST':
         # Récupérer la réponse du formulaire
         reply = request.form['reply']
         subject = 'Reponse'
-        body = f'''
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        /* Stylize the email with CSS */
-        body {{
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }}
-        
-        .container {{
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff; /* Lernender blue */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: white;
-            text-align: center;
-        }}
-        
-        h1 {{
-            color: #3498db; /* Lernender blue */
-            font-size: 36px;
-            margin-bottom: 10px;
-        }}
-        
-        p {{
-            color: rgb(0, 0, 0);
-            font-size: 18px;
-            line-height: 1.6;
-            text-align: center;
-        }}
-        
-        .code {{
-            font-size: 42px;
-            font-weight: bold;
-        }}
-        
-        
-        .thank-you {{ 
-            margin-top: 30px;
-            font-style: italic;
-            font-size: 20px;
-        }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1><span >LMS-INVENTION</span></h1>
-        <p>{reply}</p>
-        <p class="code"></p>
-        
-        <div class="thank-you">
-            <p>Merci encore et à bientôt chez <span style="color: blue;" >LMS-INVENTION</span> !</p>
-        </div>
-        <img src="/static/assets/images/lms-logo-removebg-preview.png" style="height: 50px;width: 50px;display:flex;">
-    </div>
-</body>
-</html>
-'''
+        body =render_template('response.html',reply=reply)
         sender_email =  'info@lms-invention.com'
         send_email(sender_email, message.email, subject, body)
         message.statut="Repondu"
@@ -151,83 +72,9 @@ def auto_reply_message(message_id):
     # Code pour récupérer le message avec l'ID donné de la base de données
     # Remplacer cette ligne par votre propre code pour récupérer le message
         message = Message.query.get_or_404(message_id)
-        image_url = url_for('static', filename='assets/images/lms-logo-removebg-preview.png')
         # Récupérer la réponse du formulaire
         subject = 'Nous traitons votre préoccupation'
-        body = f'''
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        /* Stylize the email with CSS */
-        body {{
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }}
-        
-        .container {{
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff; /* Lernender blue */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            color: white;
-        }}
-        
-        h1 {{
-            color: #3498db; /* Lernender blue */
-            font-size: 36px;
-            margin-bottom: 10px;
-        }}
-        
-        p {{
-            color: rgb(0, 0, 0);
-            font-size: 18px;
-            line-height: 1.6;
-            text-align: center;
-        }}
-        
-        .code {{
-            font-size: 42px;
-            font-weight: bold;
-        }}
-        
-        
-        .thank-you {{ 
-            margin-top: 30px;
-            font-style: italic;
-            font-size: 20px;
-        }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1><span >LMS-INVENTION</span></h1>
-        <div style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6;">
-            <p>Bonjour {message.name}</p><br>
-            <p>Nous vous remercions de votre prise de contact et accusons réception de votre demande .</p>
-            <p>Notre délai de réponse actuel est en moyenne de 2 à 5 heures. Nous faisons le nécessaire pour vous apporter une solution le plus rapidement possible.</p>
-            <br>
-            <p>Petite astuce, vérifiez vos courriers indésirables et vos spams, nos réponses peuvent s’y glisser.</p><br>
-            <p>Pour être plus efficace, nous vous demandons de ne pas multiplier vos demandes : tickets multipliés = temps de traitement allongé. En effet, chaque demande équivaut à un ticket ouvert pour notre service clientèle par ordre d'ancienneté. Si celles-ci sont multipliées, cela aura pour conséquence d'allonger le temps de réponse.</p><br>
-            <p>En attendant, permettez-nous de partager avec vous notre <a href="{{ url_for('faq', _external=True) }}" style="color: #0066cc; text-decoration: underline;">FAQ</a>. Vous y trouverez peut-être des réponses à votre question.</p>
-            <br>
-            <p>Nous vous remercions de votre confiance.</p>
-            <p>L'équipe LMS-INVENTION</p>
-        </div>
-        
-        <div class="thank-you">
-            <p>Merci encore et à bientôt chez <span style="color: blue;" >LMS-INVENTION</span> !</p>
-            <img src="{image_url}" style="height: 50px;width: 50px;display:flex;">
-
-        </div>
-        
-    </div>
-</body>
-</html>
-'''
+        body =render_template('autoreply.html',message=message)
         sender_email =  'info@lms-invention.com'
         print(sender_email)
         send_email(sender_email, message.email, subject, body)
@@ -387,34 +234,13 @@ def add_projet_admin():
 def regist():
     return render_template('regist.html', errorMessage='')
 
-# @app.route('/register', methods=['POST','GET'])
-# def register():
-#     if request.method == 'POST':
-#         name = request.form['name']
-#         email = request.form['email']
-#         func = request.form['function']
-#         password = request.form['password']
-#         confpassword = request.form['confpassword']
-#         hashed_password = generate_password_hash(password)
-
-#         if password == confpassword:
-#             registration = Registration(name=name, email=email, func=func, password=hashed_password)
-#             db.session.add(registration)
-#             db.session.commit()
-#             return redirect('/log')
-#         else:
-#             return render_template('regist.html', errorMessage='Mot de passe non correspondant')
-#     else:
-#         # Gérer le cas où la méthode est GET (chargement initial de la page)
-#         return render_template('regist.html')
-
 
 @app.route('/login', methods=['POST'])
 def login():
     email = request.form['email']
     password = request.form['password']
     user = Registration.query.filter_by(email=email).first()
-    if email=='a@gmail.com' and password=='qwerty12':
+    if email=='info@lms-invention.com' and password=='Jb2@xyZ9':
         session['isLoggedIn'] = True
         return redirect('/adminpage')
     else:
@@ -567,9 +393,7 @@ def ajouter_formation(id):
             path_abs.append(imagePath)
             file.save(imagePath)
             path_filename.append(filename)
-        print(path_filename)
         path=','.join(path_filename)
-        print("ssssssssss=",path)
         # Construction des chemins des fichiers
         # Enregistrement des données dans la base de données
         nouvelle_formation = ContentFormation(titre=titre, description=description, path=path, theme_id=idform)
@@ -673,18 +497,10 @@ def submit_form():
     email = request.form['email']
     subject = request.form['subject']
     message = request.form['message']
-
-    # Paramètres de connexion SMTP
-    # smtp_host = 'mail.lms-invention.com'  # Remplacez par le serveur SMTP de votre e-mail
-    # smtp_port = 465  # Port SMTP approprié
-    # smtp_user = 'info@lms-invention.com'  # Votre adresse e-mail
-    # smtp_password = 'LMSINV@info23'  # Mot de passe de votre adresse e-mail
     smtp_host = os.getenv("SMTP_HOST")
     smtp_port = int(os.getenv("SMTP_PORT"))
     smtp_user = os.getenv("SMTP_USER")
     smtp_password = os.getenv("SMTP_PASSWORD")
-
-    # Configuration et envoi de l'e-mail
     try:
         msg = MIMEMultipart()
         msg['From'] = smtp_user
