@@ -350,7 +350,7 @@ def addformcontent(id):
 @app.route('/enregistrer-commentaire/<int:idf>', methods=['POST'])
 def enregistrer_commentaire(idf):
     contenu = request.form['commentaire']
-    userName = request.form['username']
+    userName = session.get('userName')
     dateCommentaire = datetime.now()
     nouveau_commentaire = CommentaireFormation(contenu=contenu, auteur=userName, formation_id=idf, date=dateCommentaire)
     db.session.add(nouveau_commentaire)
@@ -360,7 +360,7 @@ def enregistrer_commentaire(idf):
 @app.route('/enregistrer-commentaire-blog/<int:idf>', methods=['POST'])
 def enregistrer_commentaire_blog(idf):
     contenu = request.form['commentaire']
-    userName = request.form['username']
+    userName = session.get('userName')
     dateCommentaire = datetime.now()
     nouveau_commentaire = CommentaireBlog(contenu=contenu, auteur=userName, blog_id=idf, date=dateCommentaire)
     db.session.add(nouveau_commentaire)

@@ -19,7 +19,7 @@
 <div class="col-md-8">
 <div class="col-md-12 ">
 <div class="container mt-5 mb-5" id="blog">
-    <h1 class="display-4 font-weight-bold mb-3" style="color: rgb(0, 3, 168);">{{ blog.titre }}</h1>
+    <h3 class="display-4 font-weight-bold mb-3" style="color: rgb(79, 82, 255);">{{ blog.titre }}</h3>
     <hr style="border: 1px solid black;">
     <img src="../{{blog.imagePath}}" alt="Image de l'article" class="img-fluid rounded" style="height: 50vh; width: 100%">
     <p  style="background-color: white;min-height: 300px;max-height: fit-content;padding: 10px;border-radius: 4px;"class="mt-4" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;text-align:justify;">
@@ -72,8 +72,10 @@
                                 <div class="lpa-meta" style="color: white;">
                                     <a class="name" href="#" style="font-weight: bold;">{{ blg.description[:20] }}...</a>
                                     <br>
+                                    <img src="../{{blg.imagePath}}" style="height: 120px;width: 120px;border-radius: 10px;" >
                                     <a class="date text-muted" href="#" style="float: right;font-size: 10px;">{{ blg.date.strftime('%B %d, %Y') }}</a>
                                 </div>
+                                
                                 <div style="mt-1">
                                     <a href="/details_blog/{{ blg.id }}" class="btn btn" style="border-radius: 50px;background-color: #0077b5;color: white;margin-top: 10px;">Voir plus</a>
                                 </div>
@@ -128,8 +130,9 @@
                                         <h5><a href="#" style="color: rgb(60, 67, 185);font-size: 20px;">{{ blg.titre }}</a></h5>
                                     </div>
                                     <div class="lpa-meta" style="color: white;">
-                                        <a class="name" href="#" style="font-weight: bold;">{{ blg.description[:20] }}...</a>
+                                        <a class="name" href="#" style="font-weight: bold;">{{ blg.description[:2000] }}...</a>
                                         <br>
+                                        <img src="../{{blg.imagePath}}" style="height: 120px;width: 120px;border-radius: 10px;" >
                                         <a class="date text-muted" href="#" style="float: right;font-size: 10px;">{{ blg.date.strftime('%B %d, %Y') }}</a>
                                     </div>
                                     <div style="mt-1">

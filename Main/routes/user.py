@@ -251,7 +251,8 @@ def comment_blog(idblog):
 @app.route('/emploi/<int:id>')
 def emploi(id):
     offre = Offre.query.get_or_404(id)
-    return render_template('emploi.html', offre=offre,csrf_token = generate_csrf())
+    offers=Offre.query.filter_by().all()
+    return render_template('emploi.html',offers=offers, offre=offre,csrf_token = generate_csrf())
 
 @app.route('/emplois')
 def emplois():

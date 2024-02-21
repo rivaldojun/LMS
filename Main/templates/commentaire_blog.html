@@ -5,23 +5,23 @@
 
 <div class="" style="background-color: #e9f2fb;">
   <form method="POST" action="/enregistrer-commentaire-blog/{{idblog}}" id="form-commentaire" style="background-color: #e9f2fb;">
-    <input type="hidden" id="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
     <div class="card-footer py-3 border-0" style="background-color: #e9f2fb;">
       <div class="d-flex flex-start w-100">
         <input type="text" id="username" name="username" style="display: none;">
         <div class="form-outline w-100">
+          <label class="form-label" for="textAreaExample">Commentaire</label>
           <textarea id="commentaire" name="commentaire" class="form-control" id="textAreaExample" 
             style="background: #fff;height: 500px;border-radius: 10px;resize: none;"></textarea>
-          <label class="form-label" for="textAreaExample">Commentaire</label>
-        </div>
-        <div class="float-end" style="background-color: #e9f2fb;">
-          <button type="submit" class="btn  p-1 btn-sm" style="width: 60px;height: 60px;border-radius: 50px;"><i class="fa fa-paper-plane"></i></button>
         </div>
       </div>
+      <br>
+      <button type="submit" class="btn btn-primary p-1 btn-sm" >Commennter</button>
     </div>
   </form>
 </div>
 
+<h6 style="text-align: center;">Commentaires</h6>
 <div id="comment-container">
     {% for commentaire in commentaires %}
       <div class="card">

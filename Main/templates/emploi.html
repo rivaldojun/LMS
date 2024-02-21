@@ -29,9 +29,6 @@
           <div class="row align-items-start">
               <div class="col-lg-8 m-15px-tb">
                   <article class="article">
-                    <div style="float: right;" class="media">
-                      <a href="https://www.linkedin.com/company/lms-invention/"><i class="fab fa-linkedin"></i> Rejoignez-nous sur Linkedin</a>
-                  </div>
                       <div class="article-title">
                           <h6><a href="#">{{ offre.type }}</a></h6>
                           <h2>{{ offre.fonc }}</h2>
@@ -44,7 +41,26 @@
                       <div class="article-content">
                           <p>{{ offre.description }}</p>
                       </div>
+                      <br>
+                      <hr style="border: 1px solid black;">
+                      <div class="container" style="justify-content: center;display: flex;align-items: center;" >                
+                        <div  > 
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('emploi', id=offre.id, _external=True) }}" target="_blank" style="display: inline; margin-right: 10px; background-color: #3b5998; color: #fff; font-size: 24px; text-decoration: none; transition: color 0.3s ease;padding: 5px;border-radius: 50%;height: 40px;width: 40px;">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <!-- Twitter -->
+                            <a href="https://twitter.com/intent/tweet?url={{ url_for('emploi', id=offre.id, _external=True) }}" target="_blank" style="display: inline; margin-right: 10px; background-color: #1da1f2; color: #fff; font-size: 24px; text-decoration: none; transition: color 0.3s ease;padding: 5px;border-radius: 50%;height: 40px;width: 40px;">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/shareArticle?url={{ url_for('emploi', id=offre.id, _external=True) }}" target="_blank" style="display: inline; background-color: #0077b5; color: #fff; font-size: 24px; text-decoration: none; transition: color 0.3s ease;padding: 5px;border-radius: 50%;height: 40px;width: 40px;">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
                   </article>
+
                   <div class="contact-form article-comment">
                       <h4>Postuler Ici</h4>
                       <form id="contact-form" method="POST" action="/postul/{{offre.id}}/{{offre.type}}" enctype="multipart/form-data">
@@ -91,24 +107,30 @@
                       </div>
                       <div class="widget-body">
                           {% if offers %}
-                              {% for offer in offers %}
-                                  {% if offer.id != offre.id %}
-                                      <div class="latest-post-aside media">
-                                          <div class="lpa-left media-body">
-                                              <div class="lpa-title">
-                                                  <h5><a href="#">{{ offer.type }}</a></h5>
-                                              </div>
-                                              <div class="lpa-meta">
-                                                  <a class="name" href="#">{{ offer.fonc }}</a>
-                                                  <a class="date" href="#">{{ offer.date.strftime('%B') }}</a>
-                                              </div>
-                                          </div>
-                                          <div class="lpa-right">
-                                              <a href="#">
-                                                  <img src="{{ offer.imagePath }}" title="" alt="">
-                                              </a>
-                                          </div>
-                                      </div>
+                              {% for blg in offers %}
+                                  {% if blg.id != offre.id %}
+                                  <div class="latest-post-aside media">
+                                    <div class="lpa-left media-body">
+                                        <div class="lpa-title" style="padding: 4px;">
+                                            <h5><a href="#" style="color: rgb(60, 67, 185);font-size: 20px;">{{ blg.fonc }}</a></h5>
+                                        </div>
+                                        <div class="lpa-meta" style="color: white;">
+                                            <a class="name" href="#" style="font-weight: bold;">{{ blg.description[:20] }}...</a>
+                                            <br>
+                                            <img src="../{{blg.imagePath}}" style="height: 120px;width: 120px;border-radius: 10px;" >
+                                            <a class="date text-muted" href="#" style="float: right;font-size: 10px;">{{ blg.date.strftime('%B %d, %Y') }}</a>
+                                        </div>
+                                        <div style="mt-1">
+                                            <a href="/details_blog/{{ blg.id }}" class="btn btn" style="border-radius: 50px;background-color: #0077b5;color: white;margin-top: 10px;">Voir plus</a>
+                                        </div>
+                                    </div>
+                                    <div class="lpa-right">
+                                        <a href="#">
+                                            <img src="{{ blg.imagePath }}" title="" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr style="border: 1px solid black;">
                                   {% endif %}
                               {% endfor %}
                           {% endif %}

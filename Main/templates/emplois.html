@@ -28,7 +28,7 @@
       <div class="col">
         {% if offres : %}
           {% for offer in offres: %}
-            <div class="card p-3 mb-2">
+            <div class="card p-3 mb-2 shadow-sm">
               <div class="d-flex flex-row align-items-center">
                 <div class="icon"> <i class="fa fa-ad"></i> </div>
                 <div class="ms-2 c-details">
@@ -40,18 +40,20 @@
               </div>
               <div class="mt-1">
                 <h3 class="heading" style="color:dodgerblue;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;font-weight: bold;">Description</h3>
+                <hr style="border: 1px solid black;">
                 <div>
-                  {% set truncatedContent = offer.description[:30] %}
+                  {% set truncatedContent = offer.description[:100] %}
                   {{ truncatedContent }}...
                 </div>
               </div>
-              <hr style="border: 1px solid black;">
+              
               <div class="mt-1">
                 <a href="{{ url_for('emploi', id=offer.id) }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;border-radius: 50px;">
                   En savoir plus <img src="{{ url_for('static', filename='assets/images/Arrow 1.png') }}" alt="" class="ml-2" style="width: 20px;scale: 0.6;">
                 </a>
               </div>
             </div>
+            <br>
           {% endfor %}
         {% else %}
           <p>Aucune offre n'est disponible pour le moment.</p>
