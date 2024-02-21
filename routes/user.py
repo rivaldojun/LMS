@@ -173,7 +173,7 @@ def souscription_conf(id):
             <div class="container">
                 <h1><span >LMS-INVENTION</span></h1>
                 <p>Vous êtes abonné à la conférence '{conference.titre}' qui aura lieu le {conference.date}.</p>
-                <p>Rejoignez la conférence en suivant ce lien: {conference.lieu}</p>
+                <p>Rejoignez la conférence en suivant ce lien: <a href='{conference.lien}'>Lien du meet</a></p>
 
                 <div class="thank-you">
                     <p>Merci encore et à bientôt chez <span style="color: blue;" >LMS-INVENTION</span> !</p>
@@ -434,7 +434,7 @@ def postul(id):
 @app.route('/postulation_offre/<int:id>', methods=['GET'])
 def postulation_offre(id):
     offre = Offre.query.filter_by(id=id).first()
-    return render_template('confirmation_postul.html', message="Félicitations ! Votre candidature pour l'offre d'emploi {offre.fonc} a été soumise avec succès. Nous vous remercions pour l'intérêt que vous portez à notre entreprise.Nous reviendrons vers vous dès que possible.", title='Merci pour votre candidature !',image='../static/assets/newsletter.jfif')
+    return render_template('confirmation_postul.html', message="Félicitations ! Votre candidature pour l'offre d'emploi '{}' a été soumise avec succès. Nous vous remercions pour l'intérêt que vous portez à notre entreprise.Nous reviendrons vers vous dès que possible.".format(offre.fonc), title='Merci pour votre candidature !',image='../static/assets/newsletter.jfif')
 
 
 @app.route('/formationview/<int:idf>/<int:id>', methods=['GET'])

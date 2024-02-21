@@ -11,4 +11,4 @@ with app.app_context():
 
 if __name__ == "__main__":
     schedule_email_reminders()
-    app.run(debug=True)
+    app.run(debug=False)

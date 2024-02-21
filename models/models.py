@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 class Registration(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(2500))
-    email = db.Column(db.String, unique=True)
+    email = db.Column(db.String(2500), unique=True)
     func = db.Column(db.String(2500))
     password = db.Column(db.String(2500))
     date=db.Column(db.DateTime, default=datetime.now)
@@ -12,7 +12,7 @@ class Registration(db.Model):
 class Souscripconf(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(2500))
-    email = db.Column(db.String, unique=True)
+    email = db.Column(db.String(2500), unique=True)
     idconf = db.Column(db.Integer)
     sub = db.Column(db.Boolean)
     date=db.Column(db.DateTime, default=datetime.now)
@@ -20,13 +20,13 @@ class Souscripconf(db.Model):
 class SouscriptionFormation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(2500))
-    email = db.Column(db.String, unique=True)
+    email = db.Column(db.String(2500), unique=True)
     sub = db.Column(db.Boolean)
     date=db.Column(db.DateTime, default=datetime.now)
 
 class Newsletter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String, unique=True)
+    email = db.Column(db.String(2500), unique=True)
     name=db.Column(db.String(2500))
 
 class Blog(db.Model):
@@ -47,8 +47,8 @@ class Offre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(2500))
     description = db.Column(db.String(2500))
-    imagePath = db.Column(db.String, default="../static/assets/images/lms-logo-removebg-preview.png")
-    fonc = db.Column(db.String, default="")
+    imagePath = db.Column(db.String(2500), default="../static/assets/images/lms-logo-removebg-preview.png")
+    fonc = db.Column(db.String(2500), default="")
     date = db.Column(db.DateTime, default=datetime.now)
 
 class Conference(db.Model):
@@ -59,7 +59,7 @@ class Conference(db.Model):
     conferencier=db.Column(db.String(2500))
     lien = db.Column(db.String(2500))
     type=db.Column(db.String(2500))
-    lieu = db.Column(db.String, default="")
+    lieu = db.Column(db.String(2500), default="")
     date = db.Column(db.DateTime, default=datetime.now)
 
 

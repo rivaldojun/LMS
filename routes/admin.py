@@ -211,7 +211,7 @@ def auto_reply_message(message_id):
             <br>
             <p>Petite astuce, vérifiez vos courriers indésirables et vos spams, nos réponses peuvent s’y glisser.</p><br>
             <p>Pour être plus efficace, nous vous demandons de ne pas multiplier vos demandes : tickets multipliés = temps de traitement allongé. En effet, chaque demande équivaut à un ticket ouvert pour notre service clientèle par ordre d'ancienneté. Si celles-ci sont multipliées, cela aura pour conséquence d'allonger le temps de réponse.</p><br>
-            <p>En attendant, permettez-nous de partager avec vous notre <a href="{{ 'faq') }}" style="color: #0066cc; text-decoration: underline;">FAQ</a>. Vous y trouverez peut-être des réponses à votre question.</p>
+            <p>En attendant, permettez-nous de partager avec vous notre <a href="{{ url_for('faq', _external=True) }}" style="color: #0066cc; text-decoration: underline;">FAQ</a>. Vous y trouverez peut-être des réponses à votre question.</p>
             <br>
             <p>Nous vous remercions de votre confiance.</p>
             <p>L'équipe LMS-INVENTION</p>
@@ -425,7 +425,7 @@ def enregistrer_article():
     titre = request.form['titre']
     contenu = request.form['contenu']
     image = request.files['image']
-    imagePath = os.path.join('static','assets', 'images_1', image.filename + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    imagePath = os.path.join('static','assets', 'images_1', datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + "_" + image.filename)
     image.save(imagePath)
     article = Blog(titre=titre, description=contenu, imagePath=imagePath)
     db.session.add(article)
@@ -442,7 +442,7 @@ def enregistrer_event():
     lieu = request.form['lieu']
     date = datetime.strptime(request.form['date'], '%Y-%m-%dT%H:%M')
     image = request.files['image']
-    imagePath = os.path.join('static','assets', 'images_1', image.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    imagePath = os.path.join('static','assets', 'images_1', datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + "_" + image.filename)
     image.save(imagePath)
     lien = request.form['lien']
     conference = Conference(titre=titre, description=description, lieu=lieu,type=type, date=date, imagePath=imagePath, lien=lien,conferencier=conferencier)
@@ -468,7 +468,7 @@ def enregistrer_offer():
         contenu = request.form['contenu']
         fonc = request.form['fonc']
         image = request.files['image']
-        imagePath = os.path.join('static','assets', 'images_1', image.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+        imagePath = os.path.join('static','assets', 'images_1', datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + "_" + image.filename)
         image.save(imagePath)
         offre = Offre(type=annonce_type, description=contenu, fonc=fonc, imagePath=imagePath)
         db.session.add(offre)
@@ -481,7 +481,7 @@ def enregistrer_projet():
     titre = request.form['titre']
     description = request.form['contenu']
     image = request.files['image']
-    imagePath = os.path.join('static','assets', 'images_1', image.filename + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    imagePath = os.path.join('static','assets', 'images_1', datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + "_" + image.filename)
     image.save(imagePath)
     projet = Projet(titre=titre, description=description, imagePath=imagePath)
     db.session.add(projet)
@@ -546,11 +546,11 @@ def ajouter_formation(id):
         description = request.form['description']
         fichiers = request.files.getlist('fichiers[]')
         for file in fichiers:
-            imagePath=os.path.join('static','assets','images_1', file.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+            imagePath=os.path.join('static','assets','images_1', datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + "_" + file.filename)
             path_abs.append(imagePath)
             file.save(imagePath)
         # Construction des chemins des fichiers
-        path = ','.join([file.filename+ "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") for file in fichiers])
+        path = ','.join([datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + "_" + file.filename for file in fichiers])
         # Enregistrement des données dans la base de données
         nouvelle_formation = ContentFormation(titre=titre, description=description, path=path, theme_id=idform)
         db.session.add(nouvelle_formation)
