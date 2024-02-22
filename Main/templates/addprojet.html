@@ -10,13 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
-<body style="margin-bottom: 100px;">
-
     {% with currentPage='projet' %}
     {% include 'navbar_admin.html' %}
     {% endwith %}
     
+<body style="margin-bottom: 100px;">
+
+
     <div id="blg" class="container" style="margin-bottom: 100px;">
       <h1 class="mt-5  mb-4 text-center">Ajouter un projet</h1>
       <form method="POST" action="/enregistrer-projet" enctype="multipart/form-data">

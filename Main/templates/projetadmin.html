@@ -10,16 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
    
 </head>
-
+    {% with currentPage='' %}
+    {% include 'navbar_admin.html' %}
+{% endwith %}
 <body>
     <style>
         #prj1:hover{
             background-color: #315BA6;
         }
     </style>
-    {% with currentPage='' %}
-    {% include 'navbar_admin.html' %}
-{% endwith %}
+
     <a  href="/addprojet" class="btn btn mt-3 ml-3" style="background-color: black;border-radius: 50px;color: white;"><i class="fa fa-plus"></i>Ajouter une element</a>
     <div class="container" style="scale: 0.8;">
         <div class="w-2/4">

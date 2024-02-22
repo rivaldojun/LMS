@@ -8,3 +8,4 @@ Flask-Migrate
 gunicorn
 pymysql
 Flask-WTF
+Flask-Caching

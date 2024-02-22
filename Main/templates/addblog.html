@@ -11,12 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
-
     {% with currentPage='blog' %}
     {% include 'navbar_admin.html' %}
     {% endwith %}
     
+<body>
+
     <div id="blg" class="container" style="margin-bottom: 50px;">
       <h1 class="mt-5  mb-4 text-center">Ajouter un article de blog</h1>
       <form method="POST" action="/enregistrer-article" enctype="multipart/form-data">
