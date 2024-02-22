@@ -8,15 +8,97 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+           #cookie-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90vw;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 9999;
+            display: none;
+        }
+
+        #cookie-popup h2 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        #cookie-popup p {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        #cookie-popup img {
+            width: 50px;
+            margin-bottom: 20px;
+        }
+
+        #cookie-popup button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Vérifier si l'utilisateur est sur la page d'accueil
+    if(window.location.pathname === '/') {
+        // Vérifier si le popup a déjà été affiché
+        if (localStorage.getItem('cookiePopupShown')=="disp") {
+            // Afficher le popup
+            document.getElementById('cookie-popup').style.display = 'none';
+        }
+        else{
+            document.getElementById('cookie-popup').style.display = 'block';
+        }
+    }
+
+    // Ajouter un gestionnaire d'événement au bouton d'acceptation des cookies
+    document.getElementById('accept-cookies').addEventListener('click', function() {
+        // Cacher le popup
+        document.getElementById('cookie-popup').style.display = 'none';
+        // Enregistrer l'état du popup comme affiché
+        localStorage.setItem('cookiePopupShown', 'disp');
+        // Vous pouvez ajouter ici le code pour le traitement de l'acceptation des cookies
+    });
+
+    // Ajouter un gestionnaire d'événement au bouton de refus des cookies
+    document.getElementById('refuse-cookies').addEventListener('click', function() {
+        // Cacher le popup
+        localStorage.setItem('cookiePopupShown', 'disp');
+        document.getElementById('cookie-popup').style.display = 'none';
+        // Vous pouvez ajouter ici le code pour le traitement du refus des cookies
+    });
+});
+
+</script>
 </head>
   {% with currentPage='home' %}
   {% include 'navbar.html' %}
   {% endwith %}
 <body>
-
+    
+    <div id="cookie-popup"  >
+        <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708606461/fv4obo40gjk0x3r0fw8l.png" alt="Cookie icon">
+        <h2>Acceptez-vous l'utilisation des cookies ?</h2>
+        <p>Nous utilisons des cookies pour améliorer votre expérience sur notre site. <br>En continuant, vous acceptez notre utilisation des cookies conformément à notre politique de confidentialité.</p>
+        <button id="accept-cookies">Accepter</button>
+        <button id="refuse-cookies">Refuser</button>
+    </div>
   <div class="relative overflow-hidden bg-cover bg-no-repeat" style="
       background-position: 50%;
-      background-image: url('../static/assets/pictures/header.jpg');
+      background-image: url('https://res.cloudinary.com/dxwn90o2i/image/upload/v1708601818/zutzehcazjgmwwlxpfzy.jpg');
       height: 700px;
       margin-top: -6px;
     ">
@@ -81,16 +163,16 @@
 
 <section  style="background-color: rgb(226, 230, 250);font-family: 'Raleway';">
     <div class="flex flex-col gap-5 animate-element" data-animation="fadeInUp">
-        <p class="sm:text-[38px] text-[30px]  font-bold text-center text-[blue]" style="z-index: 999999999999;opacity: 100%;margin-bottom: -30px;margin-top: 20px;font-size: 30px;color: black;font-family: 'Kanit';">
+        <p class="sm:text-[38px] text-[30px]  font-bold text-center text-[blue]" style="z-index: 999999999999;opacity: 100%;margin-bottom: -15px;margin-top: 20px;font-size: 30px;color: black;font-family: 'Kanit';">
            NOS SERVICES
         </p>
     </div>
-    <div class="container-fluid" style="scale: 0.8;">
+    <div class="container-fluid" style="scale: 0.95;">
     <div class="row">
         <!-- Première carte -->
         <div class="col-md-4 mb-4">
             <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 0.2s;">
-                <img src="../static/assets/images/process.png" class="card-img-top" alt="Process" style="height: 300px;">
+                <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602242/bnmzpmpivceoajxlskxg.png" class="card-img-top" alt="Process" style="height: 300px;">
                 <div class="card-body">
                     <h5 class="card-title text-primary font-weight-bold">Processus</h5>
                     <p class="card-text ">Nous améliorons les processus métier grâce à des analyses approfondies, à des outils de gestion et à des automatisations intelligentes. Notre objectif est d'optimiser chaque étape du flux de travail pour une performance accrue et une réduction des délais.</p>
@@ -101,7 +183,7 @@
         <!-- Deuxième carte -->
         <div class="col-md-4 mb-4">
             <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 0.4s">
-                <img src="../static/assets/images/automation.png" class="card-img-top" alt="Automatisation" style="height: 300px;">
+                <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602231/woct2wnthkmi4hfvw2lk.webp" class="card-img-top" alt="Automatisation" style="height: 300px;">
                 <div class="card-body">
                     <h5 class="card-title text-primary font-weight-bold">Automatisation</h5>
                     <p class="card-text ">Notre expertise en automatisation vise à optimiser les opérations de nos clients grâce à l'automatisation intelligente des processus. Nous concevons des solutions sur mesure pour accroître l'efficacité, réduire les coûts et minimiser les erreurs.</p>
@@ -112,7 +194,7 @@
         <!-- Troisième carte -->
         <div class="col-md-4 mb-4">
             <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 0.6s;">
-                <img src="../static/assets/images/energy.jpg" class="card-img-top" alt="Energie" style="height: 300px;">
+                <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602764/zcpc1nehz2iwq3iax5gb.jpg" class="card-img-top" alt="Energie" style="height: 300px;">
                 <div class="card-body">
                     <h5 class="card-title text-primary font-weight-bold">Energie</h5>
                     <p class="card-text ">Notre approche innovante de la gestion de l'énergie aide les entreprises à réduire leur consommation énergétique tout en maximisant l'efficacité. Nous proposons des solutions pour une utilisation plus intelligente de l'énergie et une intégration optimale des énergies renouvelables.</p>
@@ -125,7 +207,7 @@
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 0.8s;">
-                <img src="../static/assets/images/industry4.png" class="card-img-top" alt="Industrie 4.0" style="height: 300px;">
+                <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602765/zgpnuz2whhq99v4la3z8.png" class="card-img-top" alt="Industrie 4.0" style="height: 300px;">
                 <div class="card-body">
                     <h5 class="card-title text-primary font-weight-bold">Industrie 4.0</h5>
                     <p class="card-text">Dans le cadre de l'Industrie 4.0, nous aidons les entreprises à numériser leurs opérations, à connecter leurs équipements et à optimiser leur production. Notre approche holistique de la transformation numérique vise à créer des usines intelligentes et interconnectées.</p>
@@ -136,7 +218,7 @@
         <!-- Cinquième carte -->
         <div class="col-md-4 mb-4">
             <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 1s;">
-                <img src="../static/assets/images/ai.png" class="card-img-top" alt="Intelligence artificielle" style="height: 300px;">
+                <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602764/taqbf91tpwkcf91u2lce.png" class="card-img-top" alt="Intelligence artificielle" style="height: 300px;">
                 <div class="card-body">
                     <h5 class="card-title text-primary font-weight-bold">Intelligence artificielle</h5>
                     <p class="card-text ">Notre expertise en intelligence artificielle permet à nos clients de tirer parti de l'analyse de données avancée, de la prédiction et de la prise de décision automatisée. Nous créons des solutions personnalisées pour maximiser la valeur de leurs données.</p>
@@ -147,7 +229,7 @@
         <!-- Sixième carte -->
         <div class="col-md-4 mb-4">
             <div class="card animate-element" data-animation="fadeInUp" style="min-height: 550px;animation-duration: 1s;">
-                <img src="../static/assets/images/realiteaug.png" class="card-img-top" alt="Réalité augmentée" style="height: 300px;">
+                <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602766/luxdy7nntsc3o0jqgkri.png" class="card-img-top" alt="Réalité augmentée" style="height: 300px;">
                 <div class="card-body">
                     <h5 class="card-title text-primary font-weight-bold">Réalité augmentée</h5>
                     <p class="card-text ">La réalité augmentée est au cœur de notre approche de la formation et de la maintenance. Nous utilisons cette technologie pour fournir des expériences interactives et immersives, améliorant ainsi la formation et le support technique.</p>
@@ -175,7 +257,7 @@
         <div>
         <h2 class="text-[38px] font-semibold  mb-4" style="color: rgb(75, 75, 255);; font-size: 22px;">DIGITALIZATION</h2>
         <div class="w-16 h-1  mb-4" style="background-color: rgb(75, 75, 255); ;"></div> 
-        <img src="../static/assets/images/dig.jpeg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
+        <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602524/v50irxrrftscdwdu3v08.jpg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
       </div>
       <div class="flex justify-between items-center">
 
@@ -185,7 +267,7 @@
       <div>
         <h2 class="text-[38px] font-semibold  mb-4" style="color: rgb(75, 75, 255);; font-size: 22px;">SMART HOME</h2>
         <div class="w-16 h-1  mb-4" style="background-color: rgb(75, 75, 255); ;"></div> 
-        <img src="../static/assets/images/smhome.jpg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
+        <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602554/gcvb5cauxcazacq3zmdn.jpg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
       </div>
       <div class="flex justify-between items-center">
  
@@ -196,7 +278,7 @@
       <div>
         <h2 class="text-[38px] font-semibold  mb-4" style="color: rgb(75, 75, 255);; font-size: 22px;">ACCESS</h2>
         <div class="w-16 h-1  mb-4" style="background-color: rgb(75, 75, 255); ;"></div> 
-        <img src="../static/assets/images/acess.jpg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
+        <img src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602568/zhmjrpfsqueznqljiftn.jpg" alt="" class="sm:w-[590px] w-[270px] h-[200px] mx-auto sm:h-50% my-auto" style="border-radius: 20px;margin-bottom: 20px;height: 200px;">
       </div>
       <div class="flex justify-between items-center">
 
@@ -325,7 +407,7 @@
             <!-- Comment Card -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex items-center mb-4">
-                    <img class="w-12 h-12 rounded-full mr-4"  src="../static/assets/celia.png" alt="User 1">
+                    <img class="w-12 h-12 rounded-full mr-4"  src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602378/l89xsdmfypxkwkynbagf.png" alt="User 1">
                     <div>
                         <h3 class="text-lg font-semibold">Celia LAPENSEE</h3>
                     </div>
@@ -357,7 +439,7 @@
             <!-- Add more comment cards here -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex items-center mb-4">
-                    <img class="w-12 h-12 rounded-full mr-4" src="../static/assets/thomas.png" alt="User 1">
+                    <img class="w-12 h-12 rounded-full mr-4" src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602377/wnjwingrqldh1hmofpje.png" alt="User 1">
                     <div>
                         <h3 class="text-lg font-semibold">THOMAS MILLER</h3>
                     </div>
@@ -388,7 +470,7 @@
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex items-center mb-4">
-                    <img class="w-12 h-12 rounded-full mr-4"  src="../static/assets/christine.png" alt="User 1">
+                    <img class="w-12 h-12 rounded-full mr-4"  src="https://res.cloudinary.com/dxwn90o2i/image/upload/v1708602374/m36wko64svbdg8kir9k6.png" alt="User 1">
                     <div>
                         <h3 class="text-lg font-semibold">Christine LAPAIX</h3>
                     </div>
@@ -443,7 +525,7 @@ Contactez-nous dès aujourd'hui pour découvrir comment nous pouvons vous aider 
 </div>
                   </div>     
                   <div class="col-lg-6">
-                    <img class="img" style="z-index: 9999999;"  src="../static/assets/images/Group 10.png" alt="User 1">
+                    <img class="img" style="z-index: 9999999;"  src="{{url_for('static',filename='assets/pictures/header.jpg')}}" >
                 </div>
             </div>
         </div>
