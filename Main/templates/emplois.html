@@ -42,8 +42,7 @@
                 <h3 class="heading" style="color:dodgerblue;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;font-weight: bold;">Description</h3>
                 <hr style="border: 1px solid black;">
                 <div>
-                  {% set truncatedContent = offer.description[:100] %}
-                  {{ truncatedContent }}...
+                  {{ offer.description |safe | strip_tags| truncate(80) }}...
                 </div>
               </div>
               

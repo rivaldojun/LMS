@@ -47,10 +47,10 @@
                                 </p>
                                 <p class="">
                                     <strong style="text-decoration: underline;">Description</strong><br>
-                                    {% if proj.description|length > 20 %}
-                                        {{ proj.description[:20] }}...
+                                    {% if proj.description|length > 80 %}
+                                        {{ proj.description |safe | strip_tags| truncate(80)}}...
                                     {% else %}
-                                        {{ proj.description }}
+                                        {{ proj.description |safe | strip_tags }}
                                     {% endif %}
                                 </p>
                                 <div class="flex justify-between items-center">

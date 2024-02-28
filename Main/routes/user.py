@@ -130,12 +130,16 @@ def logout():
 
 @app.route('/details_blog/<int:id>')
 def details_blog(id):
-    blog = Blog.query.get(id)
-    blogs=Blog.query.filter_by().all()
-    if blog:
-        return render_template('details_blog.html', blog=blog,blogs=blogs,csrf_token=generate_csrf())
-    else:
-        return 'Article de blog non trouvé'
+    try:
+        blog = Blog.query.get(id)
+        blogs=Blog.query.filter_by().all()
+        commentaires = CommentaireBlog.query.filter_by(blog_id=id).all()
+        if blog:
+            return render_template('details_blog.html',idb=id, blog=blog,blogs=blogs,commentaires=commentaires,csrf_token=generate_csrf())
+        else:
+            return 'Article de blog non trouvé'
+    except Exception as e:
+        return redirect(url_for('details_blog',id=id))
     
 
 # Route pour afficher les détails d'une conférence
@@ -239,7 +243,10 @@ def formation(id):
 @app.route('/comment/<int:idform>')
 def comment(idform):
     commentaires = CommentaireFormation.query.filter_by(formation_id=idform).all()
-    return render_template('commentaire.html', commentaires=commentaires,idform=idform,csrf_token = generate_csrf())
+    formation = ContentFormation.query.filter_by(id=idform).first()
+    if formation:
+        theme_id = formation.theme_id
+    return render_template('commentaire.html', commentaires=commentaires,idform=idform,theme_id=theme_id,csrf_token = generate_csrf())
 
 
 @app.route('/comment_blog/<int:idblog>')
@@ -307,7 +314,6 @@ def voir_formation(idf, id):
         if form:
             commentaires = CommentaireFormation.query.filter_by(formation_id=id).all()
             formations = form.path.split(',')
-            print(formations)
             return render_template('formationview.html', form=form, formations=formations, idf=idf, commentaires=commentaires)
         else:
             return render_template('pas_element.html',idf=idf)

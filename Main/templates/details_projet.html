@@ -17,7 +17,7 @@
 <body>
 
  
-    <div class="container mt-5">
+    <div class="container mt-5" style="overflow-x:hidden;">
         <div class="row">
             <div class="col-xs-4 item-photo">
                 <img style="max-width:100%;" src="../{{ proj.imagePath }}" />
@@ -50,23 +50,5 @@
 li.actives{border-bottom:3px solid silver;width: fit-content;}
 
 
-
-@media (max-width: 426px) {
-    .container {margin-top:0px !important;}
-    .container > .row{padding:0 !important;}
-    .container > .row > .col-xs-12.col-sm-5{
-        padding-right:0 ;    
-    }
-    .container > .row > .col-xs-12.col-sm-9 > div > p{
-        padding-left:0 !important;
-        padding-right:0 !important;
-    }
-    .container > .row > .col-xs-12.col-sm-9 > div > ul{
-        padding-left:10px !important;
-        
-    }            
-    .section{width:104%;}
-    .menu-items{padding-left:0;}
-}
 </style>
 </body>

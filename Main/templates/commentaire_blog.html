@@ -4,6 +4,11 @@
 
 
 <div class="" style="background-color: #e9f2fb;">
+        <div class="container-fluid">
+      <a class="btn btn" href="/details_blog/{{idblog}}">
+      <i class="fas fa-arrow-left"></i> Retour
+      </a>
+  </div>
   <form method="POST" action="/enregistrer-commentaire-blog/{{idblog}}" id="form-commentaire" style="background-color: #e9f2fb;">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
     <div class="card-footer py-3 border-0" style="background-color: #e9f2fb;">
@@ -31,7 +36,7 @@
               src="../static/assets/images/unknown.jpg" alt="avatar" width="60"
               height="60" />
             <div>
-              <h6 class="fw-bold text-primary mb-1">{{ commentaire.auteur }}</h6>
+              <h6 class="fw-bold text-primary mb-1">@{{ commentaire.auteur }}</h6>
             </div>
           </div>
 
@@ -59,13 +64,19 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Récupérez la valeur du nom d'utilisateur depuis sessionStorage
-      const userName= sessionStorage.getItem('userName');
-      // Pré-remplissez le champ "username" avec la valeur du nom d'utilisateur
-      const usernameInput = document.getElementById('username');
-      usernameInput.value = userName;
-    });
+document.addEventListener('DOMContentLoaded', function() {
+  // Récupérez la valeur du nom d'utilisateur depuis sessionStorage
+  const userName = sessionStorage.getItem('userName');
+  // Pré-remplissez le champ "username" avec la valeur du nom d'utilisateur
+  const usernameInput = document.getElementById('username');
+  // Vérifiez si userName est null
+  if (userName === null) {
+    usernameInput.value = "Anonyme";
+  } else {
+    usernameInput.value = userName;
+  }
+});
+
 </script>
 
 {% include 'footer.html' %}

@@ -14,7 +14,6 @@
         {% include 'navbar.html' %}
     {% endwith %}
 <body>
-
     <div class="ml-5 mt-5">
         <div class="ml-5 mt-5 animate-element" data-animation="fadeInUp" style="animation-duration: 0.6s;">
             <p class="text-4xl font-bold " style="color: rgb(75, 75, 255);">
@@ -43,10 +42,10 @@
                         <div class="padding-60px-lr md-padding-50px-lr sm-padding-30px-all xs-padding-25px-all">
                             <h5 class="margin-15px-bottom md-margin-10px-bottom font-size22 md-font-size20 xs-font-size18 font-weight-500"><a href="event-details.html" class="text-theme-color">{{ conf.titre }}</a></h5>
                             <ul class="event-time margin-10px-bottom md-margin-5px-bottom">
-                                <li><i class="far fa-clock margin-10px-right"></i>{{ conf.date.hour }} : {{ conf.date.minute }} </li>
+                                <li><i class="far fa-clock margin-10px-right"></i>{{ "%02d"|format(conf.date.hour) }} Heures : {{ "%02d"|format(conf.date.minute) }} Minutes </li>
                                 <li><i class="fas fa-location margin-10px-right"></i>{{ conf.lieu }}</li>
                             </ul>
-                            <p class="mb-5" style="font-size: 18px;">{{ conf.description[:50] }}...</p>
+                            <p class="mb-5" style="font-size: 18px;">{{ conf.description |safe | strip_tags| truncate(80)}}...</p>
                             <a class="butn small margin-10px-top md-no-margin-top" href="/details_confs/{{ conf.id }}" style="background-color: #192f59;border-radius: 50px;padding: 10px;color: white;margin-top: 50px;">En Savoir Plus <i class="fas fa-long-arrow-alt-right margin-10px-left"></i></a>
                         </div>
                     </div>

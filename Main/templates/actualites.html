@@ -41,13 +41,11 @@
                   {{ blog.titre }}
                 </p>
                 <p class="text-primary-first mt-2" >
-                  {% set truncated_content = blog.description[:60] %}
-                  {{ truncated_content }}...
+                  {{ blog.description |safe | strip_tags| truncate(80) }}...
                 </p>
                 <div class="mt-5">
                   <a href="{{ url_for('details_blog', id=blog.id) }}" class="btn btn" style="background-color: rgb(75, 75, 255);color: white;">
                     En savoir plus
-                    <img src="{{ url_for('static', filename='../static/assets/images/Arrow 1.png') }}" alt="" class="ml-2" style="width: 20px;">
                   </a>
                 </div>
               </div>

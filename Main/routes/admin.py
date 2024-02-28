@@ -350,7 +350,7 @@ def addformcontent(id):
 @app.route('/enregistrer-commentaire/<int:idf>', methods=['POST'])
 def enregistrer_commentaire(idf):
     contenu = request.form['commentaire']
-    userName = session.get('userName')
+    userName = session.get('userName') if session.get('userName') is not None else "Anonyme"
     dateCommentaire = datetime.now()
     nouveau_commentaire = CommentaireFormation(contenu=contenu, auteur=userName, formation_id=idf, date=dateCommentaire)
     db.session.add(nouveau_commentaire)
@@ -360,7 +360,7 @@ def enregistrer_commentaire(idf):
 @app.route('/enregistrer-commentaire-blog/<int:idf>', methods=['POST'])
 def enregistrer_commentaire_blog(idf):
     contenu = request.form['commentaire']
-    userName = session.get('userName')
+    userName = session.get('userName') if session.get('userName') is not None else "Anonyme"
     dateCommentaire = datetime.now()
     nouveau_commentaire = CommentaireBlog(contenu=contenu, auteur=userName, blog_id=idf, date=dateCommentaire)
     db.session.add(nouveau_commentaire)
@@ -405,18 +405,18 @@ def ajouter_formation(id):
         return jsonify(message='Une erreur s\'est produite lors de l\'ajout de la formation'), 500
     
 
-@app.route('/supprimerblog/<int:id>', methods=['GET'])
+@app.route('/supprimerblog/<int:id>', methods=['GET','POST'])
 def supprimer_blog(id):
     try:
-        blog = Blog.query.get(id)
+        blog = Blog.query.filter_by(id=id).first()
         if blog:
+            CommentaireBlog.query.filter_by(blog_id=id).delete()
             db.session.delete(blog)
             db.session.commit()
-            return render_template('confirmation_supp.html',message='supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')
+            return render_template('confirmation_supp.html',message='supprimé avec succès.',title='Suppression',image='/static/assets/vecteur/delete.jpeg')
         else:
-            return render_template('confirmation_supp.html',message='Element non trouvé .',title='Suppression',image='../static/assets/vecteur/delete.jpeg') 
+            return render_template('confirmation_supp.html',message='Element non trouvé .',title='Suppression',image='/static/assets/vecteur/delete.jpeg') 
     except Exception as error:
-        print('Une erreur s\'est produite lors de la suppression du blog :', error)
         return 'Une erreur s\'est produite lors de la suppression du blog.', 500
 
 @app.route('/supprimerconfs/<int:id>', methods=['GET'])
@@ -453,6 +453,7 @@ def supprimer_contenu_formation(idf, id):
     try:
         content_formation = ContentFormation.query.filter_by(id=id, theme_id=idf).first()
         if content_formation:
+            CommentaireFormation.query.filter_by(formation_id=id).delete()
             db.session.delete(content_formation)
             db.session.commit()
             return render_template('confirmation_supp.html',message='Contenu de la formation supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')  
@@ -466,6 +467,7 @@ def supprimer_formations(id):
     try:
         theme_formation = ThemeFormation.query.get(id)
         if theme_formation:
+            ContentFormation.query.filter_by(theme_id=id).delete()
             db.session.delete(theme_formation)
             db.session.commit()
             return render_template('confirmation_supp.html',message='supprimé avec succès.',title='Suppression',image='../static/assets/vecteur/delete.jpeg')

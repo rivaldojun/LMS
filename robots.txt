@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://lms-invention.com/sitemap-index.xml
+Sitemap: http://lms-invention.com/sitemap-index-1.xml
+Sitemap: http://lms-invention.com/sitemap.xml
